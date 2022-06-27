@@ -19,7 +19,7 @@ const roles = {
             abstain: {
                 nameStr: 'abstain',
                 choosePlayers: false,
-                do: (params) => {
+                do: () => {
                     console.log('The Mafia has abstained from taking action on this night.');
                 },
             },
@@ -33,7 +33,14 @@ const roles = {
                 nameStr: 'heal',
                 choosePlayers: true,
                 do: (params) => {
-                    console.log(`The Doctor has healed player ${params.playerID}!`);
+                    for (const player of players) {
+                        if (player.id === params.playerID) {
+                            player.alive = true;
+                            console.log(`The Doctor has healed ${player.name}!`);
+                            return;
+                        }
+                    }
+                    
                 },
             },
             abstain: {
@@ -82,6 +89,18 @@ const promptAction = (player) => {
     console.log(`${player.name}'s turn.`);
 
     console.log(`${player.name}, choose your action:`);
+    Object.keys(roles[player.role].actions).forEach((key, index) => {
+        console.log(`${index+1}: ${key}`);
+    });
+
+    let userInput = 1;
+    player.action = 'abstain';
+    Object.keys(roles[player.role].actions).forEach((key, index) => {
+        if (index+1 === userInput) {
+            player.action = key;
+        }
+    });
+    console.log(`Action: ${player.action}`);
 }
 
 const night = () => {
@@ -92,12 +111,25 @@ const night = () => {
     }
 }
 
+const oneCycle = () => {
+    night();
+    endNight();
+
+    // day();
+    // endDay();
+    // endDay checks if the game is over
+}
+
 const test = () => {
-    createPlayer(1, 'Nats', 'Mafia', 'kill', {playerID: 2});
-    createPlayer(2, 'Blaii', 'Doctor', 'heal', {playerID: 2});
+    createPlayer(1, 'Nats', 'Mafia');
+    createPlayer(2, 'Blaii', 'Doctor');
 
     // console.log(players);
-
+    players[0].action = 'abstain';
+    players[1].action = 'abstain';
+    night();
+    players[0].params = {playerID: 2};
+    players[1].params = {playerID: 2};
     endNight();
 }
 
