@@ -1,4 +1,5 @@
 // POLYMORPHISM/ ROLE TESTING
+// BACKEND
 const roles = {
     Mafia: {
         nameString: 'Mafia',
@@ -55,8 +56,40 @@ const roles = {
     },
 };
 
+// BACKEND NOT API
+const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
+// BACKEND
+const assignRoles = (players, roleNumbers) => {
+    const playerRoles = [];
+
+    // Create an array with the right amount of entries
+    Object.entries(roleNumbers).forEach(([key, value]) => {
+        for (let i = 0; i < value; i++) {
+            playerRoles.push(key);
+        }
+    });
+
+    // Shuffle array
+    // Fisher-Yates algorithm
+    console.log(playerRoles);
+    for (let i = 0; i < 5; i++){
+    shuffleArray(playerRoles);
+    console.log(playerRoles);
+    }
+}
+
+// FRONTEND
 const players = [];
 
+// FRONTEND
 const createPlayer = (id, username, role) => {
     const newPlayer = {
         id: id,
@@ -70,6 +103,7 @@ const createPlayer = (id, username, role) => {
     players.push(newPlayer);
 }
 
+// FRONTEND??
 const doNightAction = (playerID) => {
     for (const player of players) {
         if (player.id === playerID) {
@@ -79,12 +113,14 @@ const doNightAction = (playerID) => {
     }
 }
 
+// FRONTEND??
 const endNight = () => {
     for (const player of players) {
         doNightAction(player.id);
     }
 }
 
+// FRONTEND
 const promptAction = (player) => {
     console.log(`${player.name}'s turn.`);
 
@@ -103,6 +139,7 @@ const promptAction = (player) => {
     console.log(`Action: ${player.action}`);
 }
 
+// FRONTEND
 const night = () => {
     for (const player of players) {
         if (player.alive) {
@@ -111,6 +148,7 @@ const night = () => {
     }
 }
 
+// FRONTEND
 const oneCycle = () => {
     night();
     endNight();
@@ -120,7 +158,15 @@ const oneCycle = () => {
     // endDay checks if the game is over
 }
 
+// TESTING
 const test = () => {
+    assignRoles({}, {
+        'Mafia': 2,
+        'Doctor': 2,
+        'Detective': 1,
+        'Civilian': 2
+    });
+    return;
     createPlayer(1, 'Nats', 'Mafia');
     createPlayer(2, 'Blaii', 'Doctor');
 
