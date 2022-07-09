@@ -1,0 +1,40 @@
+.parent {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 10%;
+        background-color: dimgray;
+}
+
+.parentBox {
+        background-color: #333;
+        border-radius: 12px;
+        color: #eee;
+        min-height: 200px;
+        padding: 150px;
+        width: 300px;
+
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+}
+
+.childTabs {
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+}
+
+.playerSelect {
+        background-color: gray;
+        border-radius: 12px;
+        color: #eee;
+        padding: 120px;
+        width: 300px;
+
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+}
