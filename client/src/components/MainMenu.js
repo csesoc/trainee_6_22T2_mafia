@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from "./mainBoxComponent";
-import styles from './mainBox.module.css';
-import './button.css'
+import styles from '../style/mainBox.module.css';
+import '../style/button.css'
 
 export default function MainMenu() {
   return (
