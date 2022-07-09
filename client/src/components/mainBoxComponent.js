@@ -1,9 +1,11 @@
 import React from 'react';
 
-export default function Box({ children, ...props}) {
+const Box = ({ children, ...props}) => {
     return (
         <div {...props}>
         	{children}
         </div>
     )
 };
+
+export default Box;

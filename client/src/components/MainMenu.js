@@ -3,7 +3,7 @@ import Box from "./mainBoxComponent";
 import styles from '../style/mainBox.module.css';
 import '../style/button.css'
 
-export default function MainMenu() {
+const MainMenu = () => {
   return (
     <div className={styles.parent}>
       <Box className={styles.parentBox}>
@@ -26,3 +26,5 @@ export default function MainMenu() {
     </div>
   );
 }
+
+export default MainMenu;
