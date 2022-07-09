@@ -1,28 +1,22 @@
 import React from 'react';
-import Box from "./mainBoxComponent";
-import styles from '../style/mainBox.module.css';
+import '../style/MainMenu.css';
 import '../style/button.css'
 
 const MainMenu = () => {
   return (
-    <div className={styles.parent}>
-      <Box className={styles.parentBox}>
-        <Box>
+    <div className='parent'>
+      <div className='parent-box'>
+        <div>
           <h1>Welcome to Mafia</h1>
-        </Box>
-        <Box className={styles.childTabs}>
-          <div className={styles.childTabs}>
-            <button className='button'>Add player names</button>
-            <button className='button'>Select Roles </button>
-          </div>
-        </Box>
-        <Box className={styles.playerSelect}>
+        </div>
+        <div className='child-tabs'>
+          <button className='button'>Add player names</button>
+          <button className='button'>Select Roles </button>
+        </div>
+        <div className='player-select'>
           Select players
-          <Box>
-
-          </Box>
-        </Box>
-      </Box>
+        </div>
+      </div>
     </div>
   );
 }

@@ -7,7 +7,7 @@
         background-color: dimgray;
 }
 
-.parentBox {
+.parent-box {
         background-color: #333;
         border-radius: 12px;
         color: #eee;
@@ -21,13 +21,13 @@
         align-items: center;
 }
 
-.childTabs {
+.child-tabs {
         display: flex;
         flex-flow: row;
         justify-content: center;
 }
 
-.playerSelect {
+.player-select {
         background-color: gray;
         border-radius: 12px;
         color: #eee;
