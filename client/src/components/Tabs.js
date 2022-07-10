@@ -8,12 +8,12 @@ import '../style/button.css'
 const Tabs = () => {
 	const [isAddingShown,setIsAddingShown] = useState(true);
 	const [isChoosingShown, setIsChoosingShown] = useState(false);
-	function handleAddClick(e) {
+	const handleAddClick = (e) => {
 		setIsAddingShown(true);
 		setIsChoosingShown(false);
 
 	}
-	function handleChooseClick(e) {
+	const handleChooseClick = (e) => {
 		setIsChoosingShown(true);
 		setIsAddingShown(false);
 	}
@@ -28,7 +28,7 @@ const Tabs = () => {
 				{isChoosingShown && <ChooseRole/>}
 			</div>
 		</div>
-		);
+	);
 }
 
 export default Tabs;
