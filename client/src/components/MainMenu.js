@@ -1,5 +1,6 @@
 import React from 'react';
-import '../style/MainMenu.css';
+import Tabs from './Tabs';
+import '../style/MainMenu.css'
 import '../style/button.css'
 
 const MainMenu = () => {
@@ -9,12 +10,8 @@ const MainMenu = () => {
         <div>
           <h1>Welcome to Mafia</h1>
         </div>
-        <div className='child-tabs'>
-          <button className='button'>Add player names</button>
-          <button className='button'>Select Roles </button>
-        </div>
-        <div className='player-select'>
-          Select players
+        <div>
+          <Tabs/>
         </div>
       </div>
     </div>

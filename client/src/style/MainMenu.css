@@ -16,14 +16,15 @@
         width: 300px;
 
         display: flex;
-        flex-flow: column;
+        flex-flow: column nowrap;
         justify-content: center;
         align-items: center;
 }
 
 .child-tabs {
         display: flex;
-        flex-flow: row;
+        flex-flow: row nowrap;
+        flex-direction: row;
         justify-content: center;
 }
 
@@ -35,6 +36,7 @@
         width: 300px;
 
         display: flex;
-        flex-flow: row;
+        flex-flow: row nowrap;
+        flex-direction: row;
         justify-content: center;
 }
