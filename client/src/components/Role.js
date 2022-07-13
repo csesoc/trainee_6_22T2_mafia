@@ -5,8 +5,10 @@ const Role = ({ index, role, addRole, errors }) => {
           <h3>
             {role.name}: {role.count}
             <div className='change-val'>
-              <button onClick={() => addRole(index, 1,)} > + </button>
-              <button onClick={() => addRole(index, -1,)} > - </button>
+              <button style={{'font-size': '11px'}} onClick={() => addRole(index, -role.count,)}>Reset</button>
+              <br></br>
+              <button onClick={() => addRole(index, 1,)}>+</button>
+              <button onClick={() => addRole(index, -1,)}>-</button>
             </div>
           </h3>
           <p>{role.help}</p>

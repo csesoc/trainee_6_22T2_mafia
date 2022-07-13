@@ -28,11 +28,11 @@ const ChooseRole = () => {
 
 	const addRole = (index, change) => {
 		const newRoles = [...roles];
-		if (newRoles[index].count || change > 0) {
+		if (newRoles[index].count + change < 0) {
+			setError(index, true);
+		} else {
 			newRoles[index].count += change;
 			setError(index, false);
-		} else {
-			setError(index, true);
 		}
 		setRoles(newRoles);
 	}
