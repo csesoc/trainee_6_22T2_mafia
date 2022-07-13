@@ -1,7 +1,7 @@
 import React from 'react';
 import Tabs from './Tabs';
-import '../style/MainMenu.css'
-import '../style/button.css'
+import '../style/MainMenu.css';
+import '../style/button.css';
 
 const MainMenu = () => {
   return (
