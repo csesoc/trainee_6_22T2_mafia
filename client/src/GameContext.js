@@ -1,0 +1,62 @@
+import React, {createContext, useState} from 'react'
+
+export const GameContext = createContext({
+    players: [],
+    setPlayers: () => {},
+    numMafia: 0,
+    setNumMafia: () => {},
+    numTownspeople: 0,
+    setNumTownspeople: () => {},
+    votingTime: 10,
+    setVotingTime: () => {},
+    dayNum: 0,
+    setDayNum: () => {}
+})
+
+const GameContextProvider = ({ children }) => {
+
+    /* player fields: 
+    - hasVoted: whether the player has voted in the current phase of the game, needs to be reset after/before each new phase
+    - currentVotes: how many votes there are against this player in the current phase of the game, needs to be reset after/before each new phase
+    
+    James and MJ are just examples of how players would be stored in the array
+
+    */
+    const [players, setPlayers] = useState([
+    {
+        "name": "James", 
+        "alive": true, 
+        "role": "barista", 
+        "id": 0, 
+        "hasVoted": false, 
+        "currentVotes": 0
+    }, {
+        "name": "MJ", 
+        "alive": true, 
+        "role": "mafia", 
+        "id": 1, 
+        "hasVoted": false, 
+        "currentVotes": 1
+    }])
+    const [numMafia, setNumMafia] = useState(0)
+    const [numTownspeople, setNumTownspeople] = useState(0)
+    const [votingTime, setVotingTime] = useState(10)
+    const [dayNum, setDayNum] = useState(0)
+
+    const initialContext = {
+        players,
+        setPlayers,
+        numMafia,
+        setNumMafia,
+        numTownspeople,
+        setNumTownspeople,
+        votingTime,
+        setVotingTime
+    }
+
+    return <GameContext.Provider value={initialContext}>{children}</GameContext.Provider>
+
+}
+
+export default GameContextProvider
+
