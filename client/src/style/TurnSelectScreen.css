@@ -1,0 +1,115 @@
+.parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 8%;
+}
+
+.parent-box {
+    background-color: #333;
+    border-radius: 12px;
+    color: #eee;
+    min-height: 200px;
+    padding: 100px;
+    width: 350px;
+    text-align: center;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.select-box {
+    background-color: grey ;
+    border-radius: 12px;
+    color: #eee;
+    min-height: 100px;
+    padding: 50px;
+    width: 250px;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    /* overflow: scroll; */
+    height: 100%;
+    overflow: scroll;
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 3em;
+    border: 1px solid rgba(0,0,0,0.25)
+    }
+
+
+.scrollbar {
+    display: block;
+    width: 300px;
+    overflow: auto;
+    height: 200px;
+}
+.scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: #aaa;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+
+.scrollbar::-webkit-scrollbar-thumb {
+    background: #888; 
+    outline: 1px solid slategrey;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+.name-button {
+    align-items: center;
+    background-color: #333;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    display: inline-flex;
+    fill: #000;
+    font-family: Inter,sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    height: 40px;
+    justify-content: center;
+    letter-spacing: -.8px;
+    /* line-height: 24px;
+    min-width: 140px; */
+    outline: 0;
+    padding: 0 6px;
+    text-align: center;
+    text-decoration: none;
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    table-layout: fixed;
+    width: 80%;
+  }
+
+  .name-button:focus {
+    color: cadetblue;
+  }
+
+  .name-button:hover {
+    border-color: #06f;
+    color: #06f;
+    fill: #06f;
+  }
+
+  .name-button:active {
+    border-color: #06f;
+    color: #06f;
+    fill: #06f;
+  }
+  
