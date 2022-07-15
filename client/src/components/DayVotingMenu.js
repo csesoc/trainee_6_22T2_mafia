@@ -1,26 +1,30 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Timer from './Timer'
 import VotePanel from './VotePanel'
 import Graveyard from './Graveyard'
+import '../style/DayVotingMenuStyle.css';
+import { GameContext } from '../GameContext'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-const DayVotingMenu = ( {live_names, live_IDs, dead_names, voterID, dayNum, voteTime}) => {
-    
-    let currentTime = 0
+const DayVotingMenu = () => {
+    const { players, setPlayers } = useContext(GameContext)
+    const { votingTime, setVotingTime } = useContext(GameContext)
+    const { dayNum, setDayNum } = useContext(GameContext)
+
     
     return (
-        <div className="day_voting">
+        <div className="dayVoting">
             <div className="header">
                 <h1 className="title">Day {dayNum}: Voting</h1>
-                <Timer voteTime={voteTime}/>
+                <Timer/>
             </div>
-            <h3 className="instructions">Vote for a person to kill, voting ends in {voteTime - currentTime} seconds.</h3>
-            <div className="action_panel">
-                <VotePanel names={live_names} IDs={live_IDs} voterID={voterID}/>
-                <Graveyard names={dead_names}/>
+            <h3 className="instructions">Vote for a person to kill, voting ends in XX seconds.</h3>
+            <div className="actionPanel">
+                <VotePanel/>
+                <Graveyard/>
             </div>
-            <button>Confirm</button>
+            <button className="confirm-button">Confirm</button>
         </div>
     )
 }
