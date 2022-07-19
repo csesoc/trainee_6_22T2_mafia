@@ -2,9 +2,9 @@ import React, {useContext} from 'react'
 import { GameContext } from '../GameContext'
 import '../style/VotePanelStyle.css';
 
-const VotePanel = ({}) => {
+const VotePanel = () => {
     
-    const { players, setPlayers } = useContext(GameContext)
+    const { players } = useContext(GameContext)
     
     let livePlayers = []
     players.forEach((item, index, array) => {

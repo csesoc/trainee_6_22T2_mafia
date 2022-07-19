@@ -2,8 +2,8 @@ import React, {useContext} from 'react'
 import { GameContext } from '../GameContext'
 import '../style/Graveyard.css';
 
-const Graveyard = ( {} ) => {
-    const { players, setPlayers } = useContext(GameContext)
+const Graveyard = () => {
+    const { players } = useContext(GameContext)
     
     let deadPlayers = []
     players.forEach((player) => {
