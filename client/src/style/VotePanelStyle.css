@@ -1,0 +1,45 @@
+.VotePanel {
+  width: 60%;
+  margin-left: 10%;
+  margin-right: 10%;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.titleBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.titleBar h2 {
+  text-align: center;
+}
+
+.nameList {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  overflow-x: hidden;
+  max-height: 80%;
+}
+
+.voteListItem {
+  display: flex;
+  flex-direction: row;
+  margin: 8px;
+  background-color: rgb(56, 56, 56);
+}
+
+.nameLabel {
+  width: 40%;
+  color: white;
+  font-size: 24px;
+}
+
+.votesLabel {
+  width: 40%;
+  color: white;
+  font-size: 24px;
+}
