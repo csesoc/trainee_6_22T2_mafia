@@ -5,20 +5,22 @@ import Graveyard from './Graveyard'
 import '../style/DayVotingMenuStyle.css';
 import { GameContext } from '../GameContext'
 
-import { useState, useEffect } from 'react'
-
-const DayVotingMenu = () => {
+const DayVotingMenu = ({ currentVoter }) => {
     const { players, setPlayers } = useContext(GameContext)
-    const { votingTime, setVotingTime } = useContext(GameContext)
     const { dayNum, setDayNum } = useContext(GameContext)
 
     const confirmVote = () => {
         
+        if (currentVoter.hasVoted) {
+            return
+        }
+
         players.forEach((player) => {
             if (player.alive && document.getElementById("radio" + player.name).checked) {
                 let newPlayers = [...players]
                 //console.log("incrementing " + player.name + " from " + player.currentVotes + " to " + (player.currentVotes + 1))
                 newPlayers[player.id].currentVotes++
+                newPlayers[currentVoter.id].hasVoted = true
                 setPlayers(newPlayers)
             }
         }) 
