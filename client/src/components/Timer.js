@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { GameContext } from '../GameContext';
 
-const Timer = ({ time, setTime, setIsVotingTime, currentVoter }) => {
-  const { players, setPlayers } = useContext(GameContext);
+const Timer = ({ time, setTime, currentVoter }) => {
+  const { players, setPlayers, setCurrPage } = useContext(GameContext);
 
   let timerInterval;
 
@@ -23,7 +23,7 @@ const Timer = ({ time, setTime, setIsVotingTime, currentVoter }) => {
         }
       });
 
-      setIsVotingTime(false);
+      setCurrPage('main');
     }
   };
 

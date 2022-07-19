@@ -1,23 +1,16 @@
-import React, { useContext, useState } from 'react';
-import './App.css';
+import React, { useContext } from 'react';
 import DayVotingMenu from './components/DayVotingMenu';
 import MainMenu from './components/MainMenu';
 import { GameContext } from './GameContext';
+import './App.css';
 
 function App() {
-  const { players } = useContext(GameContext);
-  const [isVotingTime, setIsVotingTime] = useState(true);
-  const [isMainMenu, setIsMainMenu] = useState(false);
+  const { currentPage } = useContext(GameContext);
 
   return (
     <div className="App">
-      {isVotingTime && (
-        <DayVotingMenu
-          currentVoter={players[0]}
-          setIsVotingTime={setIsVotingTime}
-        />
-      )}
-      {isMainMenu && <MainMenu/>}
+      {currentPage === 'main' && <MainMenu />}
+      {currentPage === 'voting' && <DayVotingMenu />}
     </div>
   );
 }

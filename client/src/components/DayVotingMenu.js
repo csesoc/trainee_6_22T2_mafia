@@ -5,9 +5,12 @@ import Graveyard from './Graveyard';
 import '../style/DayVotingMenuStyle.css';
 import { GameContext } from '../GameContext';
 
-const DayVotingMenu = ({ currentVoter, setIsVotingTime }) => {
-  const { players, setPlayers, dayNum, votingTime } = useContext(GameContext);
+const DayVotingMenu = () => {
+  const { players, setPlayers, dayNum, votingTime, setIsVotingTime } =
+    useContext(GameContext);
   const [time, setTime] = useState(votingTime);
+
+  const currentVoter = players[0];
 
   const confirmVote = () => {
     if (currentVoter.hasVoted) {
@@ -38,12 +41,7 @@ const DayVotingMenu = ({ currentVoter, setIsVotingTime }) => {
     <div className="dayVoting">
       <div className="header">
         <h1 className="title">Day {dayNum}: Voting</h1>
-        <Timer
-          time={time}
-          setTime={setTime}
-          setIsVotingTime={setIsVotingTime}
-          currentVoter={currentVoter}
-        />
+        <Timer time={time} setTime={setTime} currentVoter={currentVoter} />
       </div>
       <h3 className="instructions">
         Vote for a person to kill, voting ends in {time} seconds.
