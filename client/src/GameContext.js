@@ -18,8 +18,6 @@ const GameContextProvider = ({ children }) => {
     /* player fields: 
     - hasVoted: whether the player has voted in the current phase of the game, needs to be reset after/before each new phase
     - currentVotes: how many votes there are against this player in the current phase of the game, needs to be reset after/before each new phase
-    
-    James and MJ are just examples of how players would be stored in the array
 
     */
     const [players, setPlayers] = useState([
@@ -68,6 +66,14 @@ const GameContextProvider = ({ children }) => {
         "alive": true, 
         "role": "barista", 
         "id": 5, 
+        "hasVoted": false, 
+        "currentVotes": 0
+    },
+    {
+        "name": "Blair", 
+        "alive": true, 
+        "role": "barista", 
+        "id": 6, 
         "hasVoted": false, 
         "currentVotes": 0
     }
