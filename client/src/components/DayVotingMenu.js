@@ -6,9 +6,9 @@ import '../style/DayVotingMenuStyle.css';
 import { GameContext } from '../GameContext'
 
 const DayVotingMenu = ({ currentVoter, setIsVotingTime }) => {
-    const { players, setPlayers } = useContext(GameContext)
-    const { dayNum, setDayNum } = useContext(GameContext)
-    const { votingTime, setVotingTime } = useContext(GameContext)
+    const { players, setPlayers, 
+            dayNum, 
+            votingTime } = useContext(GameContext)
     const [time, setTime] = useState(votingTime)
 
     let timerInterval;
@@ -68,7 +68,7 @@ const DayVotingMenu = ({ currentVoter, setIsVotingTime }) => {
                 <h1 className="title">Day {dayNum}: Voting</h1>
                 <Timer time={time} setTimer={setTime}/>
             </div>
-            <h3 className="instructions">Vote for a person to kill, voting ends in XX seconds.</h3>
+            <h3 className="instructions">Vote for a person to kill, voting ends in {time} seconds.</h3>
             <div className="actionPanel">
                 <VotePanel/>
                 <Graveyard/>
