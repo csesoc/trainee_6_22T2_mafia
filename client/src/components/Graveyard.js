@@ -1,15 +1,23 @@
+import React, {useContext} from 'react'
 import { GameContext } from '../GameContext'
 import '../style/Graveyard.css';
 
 const Graveyard = ( {} ) => {
-    let tempDeadPlayers = ["James", "Suri"]
-
+    const { players, setPlayers } = useContext(GameContext)
+    
+    let deadPlayers = []
+    players.forEach((player) => {
+        if(!player.alive) {
+            deadPlayers.push(player)
+        }
+    });
+    
     return (
         <div className="graveyard">
             <h2 className="title">Graveyard</h2>
             <div className="graveyardScroll">
-                {tempDeadPlayers.map((pName) => (<div className="graveyardListItem">
-                        <h3>{pName}</h3>
+                {deadPlayers.map((player) => (<div className="graveyardListItem">
+                        <h3>{player.name}<br/>{player.role}</h3>
                 </div>))}
             </div>
         </div>

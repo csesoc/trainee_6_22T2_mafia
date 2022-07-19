@@ -12,6 +12,17 @@ const DayVotingMenu = () => {
     const { votingTime, setVotingTime } = useContext(GameContext)
     const { dayNum, setDayNum } = useContext(GameContext)
 
+    const confirmVote = () => {
+        
+        players.forEach((player) => {
+            if (player.alive && document.getElementById("radio" + player.name).checked) {
+                let newPlayers = [...players]
+                //console.log("incrementing " + player.name + " from " + player.currentVotes + " to " + (player.currentVotes + 1))
+                newPlayers[player.id].currentVotes++
+                setPlayers(newPlayers)
+            }
+        }) 
+    }
     
     return (
         <div className="dayVoting">
@@ -24,7 +35,7 @@ const DayVotingMenu = () => {
                 <VotePanel/>
                 <Graveyard/>
             </div>
-            <button className="confirm-button">Confirm</button>
+            <button className="confirmButton" onClick={confirmVote}>Confirm</button>
         </div>
     )
 }

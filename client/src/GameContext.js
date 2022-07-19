@@ -30,14 +30,48 @@ const GameContextProvider = ({ children }) => {
         "id": 0, 
         "hasVoted": false, 
         "currentVotes": 0
-    }, {
+    }, 
+    {
         "name": "MJ", 
-        "alive": true, 
+        "alive": false, 
         "role": "mafia", 
         "id": 1, 
         "hasVoted": false, 
         "currentVotes": 1
-    }])
+    },  
+    {
+        "name": "Nyah", 
+        "alive": false, 
+        "role": "doctor", 
+        "id": 2, 
+        "hasVoted": false, 
+        "currentVotes": 0
+    },
+    {
+        "name": "Ahnaf", 
+        "alive": true, 
+        "role": "detective", 
+        "id": 3, 
+        "hasVoted": true, 
+        "currentVotes": 0
+    },
+    {
+        "name": "Suri", 
+        "alive": true, 
+        "role": "mafia", 
+        "id": 4, 
+        "hasVoted": true, 
+        "currentVotes": 0
+    },
+    {
+        "name": "Linda", 
+        "alive": true, 
+        "role": "barista", 
+        "id": 5, 
+        "hasVoted": false, 
+        "currentVotes": 0
+    }
+])
     const [numMafia, setNumMafia] = useState(0)
     const [numTownspeople, setNumTownspeople] = useState(0)
     const [votingTime, setVotingTime] = useState(10)
