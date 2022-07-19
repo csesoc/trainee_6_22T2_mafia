@@ -5,17 +5,17 @@ import '../style/button.css';
 
 const MainMenu = () => {
   return (
-    <div className='parent'>
-      <div className='parent-box'>
+    <div className="parent">
+      <div className="parent-box">
         <div>
           <h1>Welcome to Mafia</h1>
         </div>
         <div>
-          <Tabs/>
+          <Tabs />
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default MainMenu;
