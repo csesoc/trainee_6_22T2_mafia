@@ -6,15 +6,19 @@ import '../style/DayVotingMenuStyle.css';
 import { GameContext } from '../GameContext';
 
 const DayVotingMenu = () => {
-  const { players, setPlayers, dayNum, votingTime, setIsVotingTime } =
-    useContext(GameContext);
+  const {
+    players,
+    setPlayers,
+    dayNum,
+    votingTime,
+    currentVoter,
+    setCurrentPage,
+  } = useContext(GameContext);
   const [time, setTime] = useState(votingTime);
-
-  const currentVoter = players[0];
 
   const confirmVote = () => {
     if (currentVoter.hasVoted) {
-      setIsVotingTime(false);
+      setCurrentPage('main');
       return;
     }
 
@@ -33,7 +37,7 @@ const DayVotingMenu = () => {
     });
 
     if (voted) {
-      setIsVotingTime(false);
+      setCurrentPage('main');
     }
   };
 

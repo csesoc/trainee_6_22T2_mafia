@@ -17,7 +17,7 @@ const VotePanel = () => {
       <div className="titleBar">
         <h2>Name</h2>
         <h2>Votes</h2>
-        <h2></h2>
+        <h2> </h2>
       </div>
       <div className="nameList">
         {livePlayers.map((player) => (
