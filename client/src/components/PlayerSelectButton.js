@@ -1,17 +1,15 @@
 import React from "react";
 import {useState, useEffect} from "react";
 
-const PlayerSelectButton = ({playerName}) => {
+const PlayerSelectButton = ({playerName, func}) => {
     const [name, setName] = useState([])
 
     useEffect(() => {
         setName(playerName);
     }, [])
 
-    const selectName = () => {
-        console.log(name)
-    }
-    return <button className = "name-button" onClick={(e) => selectName()}>{name}</button>
+  //  return <button className = "name-button" onClick={func}>{name}</button>
+    return <button className = "name-button" onClick={() => func(name)}>{name}</button>
 }
 
 export default PlayerSelectButton
