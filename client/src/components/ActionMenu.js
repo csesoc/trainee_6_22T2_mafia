@@ -7,6 +7,7 @@ const ActionMenu = () => {
     const { setCurrentPage, players } = useContext(GameContext);
 
     // player is alive 
+    // create a dictionary of player : traversed
     // every time you press a player, add them to []
     // 
 
