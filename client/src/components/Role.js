@@ -11,14 +11,14 @@ const Role = ({ index, role, addRole, errors }) => {
             Reset
           </button>
           <br></br>
-          <button onClick={() => addRole(index, 1)}>+</button>
           <button onClick={() => addRole(index, -1)}>-</button>
+          <button onClick={() => addRole(index, 1)}>+</button>
         </div>
       </h3>
       <p>{role.help}</p>
       <p>{errors[index] && `Cannot have less than 0 ${role.name}s!`}</p>
-      {/* Making the rookie error that adding an 's' onto a noun turns it plural,
-            please don't add roles that have weird plurals */}
+      {/* Deliberately making the rookie error that adding an 's' onto a noun
+      turns it plural, please don't add roles that have weird plurals */}
     </div>
   );
 };
