@@ -1,0 +1,24 @@
+.roles{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.role {
+    background: #f4f4f4;
+    color: black;
+    margin: 5px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.role h3 {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.role p {
+    font-size: 12px;
+}

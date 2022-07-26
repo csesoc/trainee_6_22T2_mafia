@@ -4,24 +4,28 @@ import MainMenu from './components/MainMenu';
 import TurnSelectScreen from './components/TurnSelectScreen';
 import PlayerSelectMenu from './components/PlayerSelectMenu';
 import ActionMenu from './components/ActionMenu';
+import DayVotingMenu from './components/DayVotingMenu';
+import MainMenu from './components/MainMenu';
+import { GameContext } from './GameContext';
 
 function App() {
+  const { currentPage } = useContext(GameContext);
   
   // const [page, setPage] = useState('turnSelect')
 
 
   return (
-    <div> 
+    <div className="App"> 
       {/* if (page === 'turnSelect' ? <TurnSelectScreen title="Select which player you are!" : <ActionMenu title="Select another player" ) */}
 
       {/* <TurnSelectScreen /> */}
-      <ActionMenu />
+      {/* <ActionMenu /> */}
+      {currentPage === 'main' && <MainMenu />}
+      {currentPage === 'voting' && <DayVotingMenu />}
       {/* <ActionMenu title="Select another player"/> */}
-    </div>
+      </div>
   )
+
 }
 
-//pass props in to turn select
 export default App;
-
-
