@@ -9,12 +9,24 @@
 .titleBar {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
   width: 100%;
 }
 
 .titleBar h2 {
   text-align: center;
+}
+
+.nameTitle {
+  flex: 1;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.voteTitle {
+  flex: 2;
+  padding-left: 5%;
+  padding-right: 20%;
 }
 
 .nameList {
