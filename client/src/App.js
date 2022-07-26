@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import './App.css';
 import MainMenu from './components/MainMenu';
 import TurnSelectScreen from './components/TurnSelectScreen';
-import ActionMenu from './components/PlayerSelectMenu';
+import PlayerSelectMenu from './components/PlayerSelectMenu';
+import ActionMenu from './components/ActionMenu';
 
 function App() {
   
