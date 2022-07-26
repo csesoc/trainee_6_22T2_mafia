@@ -12,7 +12,7 @@ export const GameContext = createContext({
   dayNum: 0,
   setDayNum: () => {},
   currentPage: 'voting',
-  setCurrPage: () => {},
+  setCurrentPage: () => {},
 });
 
 const GameContextProvider = ({ children }) => {
@@ -83,7 +83,7 @@ const GameContextProvider = ({ children }) => {
   const [numTownspeople, setNumTownspeople] = useState(0);
   const [votingTime, setVotingTime] = useState(10);
   const [dayNum, setDayNum] = useState(0);
-  const [currentPage, setCurrPage] = useState('voting');
+  const [currentPage, setCurrentPage] = useState('voting');
 
   const initialContext = {
     players,
@@ -97,7 +97,7 @@ const GameContextProvider = ({ children }) => {
     dayNum,
     setDayNum,
     currentPage,
-    setCurrPage,
+    setCurrentPage,
   };
 
   return (

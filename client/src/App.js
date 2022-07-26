@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import './App.css';
+import { useContext } from 'react';
 import MainMenu from './components/MainMenu';
 import TurnSelectScreen from './components/TurnSelectScreen';
 import PlayerSelectMenu from './components/PlayerSelectMenu';
 import ActionMenu from './components/ActionMenu';
 import DayVotingMenu from './components/DayVotingMenu';
-import MainMenu from './components/MainMenu';
 import { GameContext } from './GameContext';
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
 
       {/* <TurnSelectScreen /> */}
       {/* <ActionMenu /> */}
+      {currentPage == "actionMenu" && <ActionMenu/>}
       {currentPage === 'main' && <MainMenu />}
       {currentPage === 'voting' && <DayVotingMenu />}
       {/* <ActionMenu title="Select another player"/> */}
