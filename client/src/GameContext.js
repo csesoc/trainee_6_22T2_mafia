@@ -16,11 +16,11 @@ export const GameContext = createContext({
 });
 
 const GameContextProvider = ({ children }) => {
-  /* player fields: 
-    - hasVoted: whether the player has voted in the current phase of the game, needs to be reset after/before each new phase
-    - currentVotes: how many votes there are against this player in the current phase of the game, needs to be reset after/before each new phase
-
-    */
+  /**
+   * player fields:
+   * - hasVoted: whether the player has voted in the current phase of the game, needs to be reset after/before each new phase
+   * - currentVotes: how many votes there are against this player in the current phase of the game, needs to be reset after/before each new phase
+   */
   const [players, setPlayers] = useState([
     {
       name: 'James',
@@ -79,6 +79,7 @@ const GameContextProvider = ({ children }) => {
       currentVotes: 0,
     },
   ]);
+
   const [numMafia, setNumMafia] = useState(0);
   const [numTownspeople, setNumTownspeople] = useState(0);
   const [votingTime, setVotingTime] = useState(10);

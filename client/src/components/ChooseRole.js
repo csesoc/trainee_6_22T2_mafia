@@ -6,7 +6,7 @@ import '../style/helpTip.css';
 import '../style/errors.css';
 
 const ChooseRole = () => {
-  // Front end:
+  // BACK END: this function should occur through an API call to the backend, not context
   // In future use roles = getRoles.map(...), pass it down through App.js?
   const [roles, setRoles] = useState([
     {
