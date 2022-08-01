@@ -16,16 +16,6 @@ const MainMenu = () => {
   } = useContext(GameContext);
 
   // BACKEND
-  const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-  };
-
-  // BACKEND
   const assignRoles = (roleNumbers) => {
     const playerRoles = [];
 
@@ -36,9 +26,14 @@ const MainMenu = () => {
       }
     });
 
-    // Shuffle array
+    // Shuffle array using
     // Fisher-Yates algorithm
-    shuffleArray(playerRoles);
+    for (let i = playerRoles.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = playerRoles[i];
+      playerRoles[i] = playerRoles[j];
+      playerRoles[j] = temp;
+    }
 
     const newPlayers = [...players];
     for (const i in players) {
@@ -88,7 +83,6 @@ const MainMenu = () => {
   };
 
   const startGame = () => {
-    // the below functions return true if run successfully and false otherwise
     if (verifyPlayers()) {
       setupGame();
       setCurrentPage('voting');
