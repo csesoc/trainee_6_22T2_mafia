@@ -85,12 +85,15 @@ const MainMenu = () => {
       roles.reduce((prev, next) => ({ ...prev, [next.name]: next.count }), {})
     );
     setDayNum(1);
-    return true;
   };
 
   const startGame = () => {
     // the below functions return true if run successfully and false otherwise
-    verifyPlayers() && setupGame() && setCurrentPage('displayPlayerRoles');
+    if (verifyPlayers()) {
+      setupGame();
+      setCurrentPage('voting');
+    }
+    return;
   };
 
   return (
