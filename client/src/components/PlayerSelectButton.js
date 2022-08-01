@@ -1,15 +1,19 @@
-import React from "react";
-import {useState, useEffect} from "react";
+import React from 'react';
+import { useState, useEffect } from 'react';
 
-const PlayerSelectButton = ({playerName, func}) => {
-    const [name, setName] = useState([])
+const PlayerSelectButton = ({ playerName, func }) => {
+  const [name, setName] = useState([]);
 
-    useEffect(() => {
-        setName(playerName);
-    }, [])
+  useEffect(() => {
+    setName(playerName);
+  }, []);
 
   //  return <button className = "name-button" onClick={func}>{name}</button>
-    return <button className = "name-button" onClick={() => func(name)}>{name}</button>
-}
+  return (
+    <button className="name-button" onClick={() => func(name)}>
+      {name}
+    </button>
+  );
+};
 
-export default PlayerSelectButton
+export default PlayerSelectButton;

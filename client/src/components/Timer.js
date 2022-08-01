@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { GameContext } from '../GameContext';
 
 const Timer = ({ time, setTime, currentVoter }) => {
-  const { players, setPlayers, setCurrPage } = useContext(GameContext);
+  const { players, setPlayers, setCurrentPage } = useContext(GameContext);
 
   let timerInterval;
 
@@ -23,7 +23,7 @@ const Timer = ({ time, setTime, currentVoter }) => {
         }
       });
 
-      setCurrPage('main');
+      setCurrentPage('main');
     }
   };
 
