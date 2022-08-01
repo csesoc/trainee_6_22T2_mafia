@@ -17,11 +17,7 @@ const ChooseRole = () => {
   } = useContext(GameContext);
 
   const getRoleIndex = (roleId) => {
-    for (const i in roles) {
-      if (roles[i].roleId === roleId) {
-        return i;
-      }
-    }
+    return roles.map((role) => role.roleId).indexOf(roleId);
   };
 
   const roleIsMafia = (roleId) => {
