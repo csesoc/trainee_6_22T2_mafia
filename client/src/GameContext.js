@@ -18,6 +18,35 @@ export const GameContext = createContext({
 });
 
 const GameContextProvider = ({ children }) => {
+  /* Roles:
+  - name: string
+  - help: short role description
+  - count: number of that role
+  - isEvil: whether the role is 'evil' (evil roles are the roles that win if mafia win)
+   */
+  const [roles, setRoles] = useState([
+    {
+      roleId: 0,
+      name: 'Mafia',
+      help: 'Selects a player to kill every night',
+      count: 0,
+      isEvil: true,
+    },
+    {
+      roleId: 1,
+      name: 'Doctor',
+      help: 'Selects a player to save every night',
+      count: 0,
+      isEvil: false,
+    },
+    {
+      roleId: 2,
+      name: 'Barista',
+      help: 'Makes coffee',
+      count: 0,
+      isEvil: false,
+    },
+  ]);
   /* player fields: 
     - name (string)
     - alive (bool)
@@ -37,7 +66,7 @@ const GameContextProvider = ({ children }) => {
     {
       name: 'James',
       alive: true,
-      role: 'barista',
+      role: 'none',
       id: 0,
       hasVoted: false,
       currentVotes: 0,
@@ -45,7 +74,7 @@ const GameContextProvider = ({ children }) => {
     {
       name: 'MJ',
       alive: false,
-      role: 'mafia',
+      role: 'none',
       id: 1,
       hasVoted: false,
       currentVotes: 1,
@@ -53,7 +82,7 @@ const GameContextProvider = ({ children }) => {
     {
       name: 'Nyah',
       alive: false,
-      role: 'doctor',
+      role: 'none',
       id: 2,
       hasVoted: false,
       currentVotes: 0,
@@ -61,7 +90,7 @@ const GameContextProvider = ({ children }) => {
     {
       name: 'Ahnaf',
       alive: true,
-      role: 'detective',
+      role: 'none',
       id: 3,
       hasVoted: true,
       currentVotes: 0,
@@ -69,7 +98,7 @@ const GameContextProvider = ({ children }) => {
     {
       name: 'Suri',
       alive: true,
-      role: 'mafia',
+      role: 'none',
       id: 4,
       hasVoted: true,
       currentVotes: 0,
@@ -77,7 +106,7 @@ const GameContextProvider = ({ children }) => {
     {
       name: 'Linda',
       alive: true,
-      role: 'barista',
+      role: 'none',
       id: 5,
       hasVoted: false,
       currentVotes: 0,
@@ -85,7 +114,7 @@ const GameContextProvider = ({ children }) => {
     {
       name: 'Blair',
       alive: true,
-      role: 'barista',
+      role: 'none',
       id: 6,
       hasVoted: false,
       currentVotes: 0,
@@ -99,6 +128,8 @@ const GameContextProvider = ({ children }) => {
   const [currentVoter, setCurrentVoter] = useState(players[0]);
 
   const initialContext = {
+    roles,
+    setRoles,
     players,
     setPlayers,
     numMafia,
