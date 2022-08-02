@@ -38,12 +38,8 @@ const ChooseRole = () => {
     setRoles(newRoles);
   };
 
-  const resetRoleErrors = () => {
-    return roles.reduce(
-      (prev, next) => ({ ...prev, [next.roleId]: false }),
-      {}
-    );
-  };
+  const resetRoleErrors = () =>
+    roles.reduce((prev, next) => ({ ...prev, [next.roleId]: false }), {});
 
   const [roleErrors, setRoleErrors] = useState(resetRoleErrors());
 
