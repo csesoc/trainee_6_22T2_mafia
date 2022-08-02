@@ -4,14 +4,7 @@ import { GameContext } from '../GameContext';
 import '../style/AddPlayer.css';
 
 const AddPlayer = () => {
-<<<<<<< Updated upstream
-	return (
-		<div>
-			Add some players lol
-		</div>
-	);
-}
-=======
+
   const { players, setPlayers } = useContext(GameContext);
   const toAdd = useRef(null);
 
@@ -69,6 +62,5 @@ const AddPlayer = () => {
     </  div>
   );
 };
->>>>>>> Stashed changes
 
 export default AddPlayer;
