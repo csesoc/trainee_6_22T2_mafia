@@ -1,4 +1,3 @@
-import React from 'react';
 import React, { useContext, useRef} from 'react';
 import { GameContext } from '../GameContext';
 import '../style/AddPlayer.css';
