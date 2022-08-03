@@ -7,13 +7,12 @@ const AddPlayer = () => {
   const { players, setPlayers } = useContext(GameContext);
   const toAdd = useRef(null);
 
-  const handleRemoval = (e) => {
+  const handleRemoval = (e, targetName) => {
     e.preventDefault();
-    let playerid = e.target.getAttribute("playerid");
-    
+
     let newPlayers = [...players];
     setPlayers( newPlayers.filter ( currentPlayers => {
-      return currentPlayers.name !== playerid;
+      return currentPlayers.name !== targetName;
     }));
   }
 
@@ -21,7 +20,7 @@ const AddPlayer = () => {
     e.preventDefault();
     
     if (toAdd.current.value === '') {
-
+      return
     }
     let newPlayers = [...players];
     newPlayers.push( {
@@ -53,7 +52,7 @@ const AddPlayer = () => {
           { players.map((player) => (
             <div className='playersList'>
               { player.name }: { player.role }     
-              <button onClick={ handleRemoval } playerid={ player.name }>Remove</button>
+              <button onClick={ (e) => handleRemoval(e, player.name)  } >Remove</button>
             </div>
           ))}
         </div>
