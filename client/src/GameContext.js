@@ -91,11 +91,17 @@ const GameContextProvider = ({ children }) => {
       currentVotes: 0,
     },
   ]);
+  const [votes, setVotes] = useState({
+    //arrays indexed by by player id
+    kill: [0, 1, 0, 3, 0, 1, 0],
+    save: [0, 0, 0, 0, 1, 0, 1],
+  });
+
   const [numMafia, setNumMafia] = useState(0);
   const [numTownspeople, setNumTownspeople] = useState(0);
   const [votingTime, setVotingTime] = useState(10);
   const [dayNum, setDayNum] = useState(0);
-  const [currentPage, setCurrPage] = useState('main'); //options: 'main', 'voting', ...
+  const [currentPage, setCurrPage] = useState('dayVoting'); //options: 'main', 'dayVoting', 'nightVoting'...
   const [currentVoter, setCurrentVoter] = useState(players[0]);
 
   const initialContext = {
@@ -113,6 +119,8 @@ const GameContextProvider = ({ children }) => {
     setCurrPage,
     currentVoter,
     setCurrentVoter,
+    votes,
+    setVotes,
   };
 
   return (

@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import DayVotingMenu from './components/DayVotingMenu';
 import MainMenu from './components/MainMenu';
+import DeathMessage from './components/DeathMessage';
 import { GameContext } from './GameContext';
 import './App.css';
 
@@ -9,8 +10,7 @@ function App() {
 
   return (
     <div className="App">
-      {currentPage === 'main' && <MainMenu />}
-      {currentPage === 'voting' && <DayVotingMenu />}
+      <DeathMessage />
     </div>
   );
 }
