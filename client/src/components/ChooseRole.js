@@ -1,61 +1,62 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import Role from './Role';
 import '../style/roles.css';
 import '../style/helpTip.css';
 import '../style/errors.css';
+import { GameContext } from '../GameContext';
 
 const ChooseRole = () => {
-  // BACK END: this function should occur through an API call to the backend, not context
-  // In future use roles = getRoles.map(...), pass it down through App.js?
-  const [roles, setRoles] = useState([
-    {
-      name: 'Mafia',
-      help: 'Selects a player to kill every night',
-      count: 0,
-    },
-    {
-      name: 'Doctor',
-      help: 'Selects a player to save every night',
-      count: 0,
-    },
-    {
-      name: 'Barista',
-      help: 'Makes coffee',
-      count: 0,
-    },
-  ]);
+  const {
+    roles,
+    setRoles,
+    numMafia,
+    setNumMafia,
+    numTownspeople,
+    setNumTownspeople,
+  } = useContext(GameContext);
 
-  const addRole = (index, change) => {
+  const getRoleIndex = (roleId) => {
+    return roles.map((role) => role.roleId).indexOf(roleId);
+  };
+
+  const roleIsMafia = (roleId) => {
+    return roles[getRoleIndex(roleId)].isEvil;
+  };
+
+  const addRole = (roleId, change) => {
     const newRoles = [...roles];
-    if (newRoles[index].count + change < 0) {
-      setError(index, true);
+    if (newRoles[getRoleIndex(roleId)].count + change < 0) {
+      setRoleError(roleId, true);
     } else {
-      newRoles[index].count += change;
-      setError(index, false);
+      roleIsMafia(roleId)
+        ? setNumMafia(numMafia + change)
+        : setNumTownspeople(numTownspeople + change);
+      newRoles[getRoleIndex(roleId)].count += change;
+      setRoleError(roleId, false);
     }
     setRoles(newRoles);
   };
 
-  const [errorMsgs, setErrorMsgs] = useState(
-    [...Array(roles.length)].fill(false)
-  );
+  const resetRoleErrors = () =>
+    roles.reduce((prev, next) => ({ ...prev, [next.roleId]: false }), {});
 
-  const setError = (index, val) => {
-    const newErrorMsgs = [...Array(roles.length).fill(false)];
-    newErrorMsgs[index] = val;
-    setErrorMsgs(newErrorMsgs);
+  const [roleErrors, setRoleErrors] = useState(resetRoleErrors());
+
+  const setRoleError = (roleId, val) => {
+    const newRoleErrors = resetRoleErrors();
+    newRoleErrors[roleId] = val;
+    setRoleErrors(newRoleErrors);
   };
 
   return (
     <div className="roles">
-      {roles.map((role, index) => (
+      {roles.map((role) => (
         <Role
-          key={index}
-          index={index}
+          key={role.roleId}
           role={role}
           addRole={addRole}
-          errors={errorMsgs}
+          roleErrors={roleErrors}
         />
       ))}
     </div>
