@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
 import './App.css';
+import { useContext } from 'react';
+import MainMenu from './components/MainMenu';
+import TurnSelectScreen from './components/TurnSelectScreen';
+import PlayerSelectMenu from './components/PlayerSelectMenu';
+import ActionMenu from './components/ActionMenu';
+import DayVotingMenu from './components/DayVotingMenu';
+import { GameContext } from './GameContext';
 
 function App() {
+  const { currentPage } = useContext(GameContext);
+
+  // const [page, setPage] = useState('turnSelect')
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* if (page === 'turnSelect' ? <TurnSelectScreen title="Select which player you are!" : <ActionMenu title="Select another player" ) */}
+
+      {/* <TurnSelectScreen /> */}
+      {/* <ActionMenu /> */}
+      {currentPage === 'main' && <MainMenu />}
+      {currentPage === 'actionMenu' && <ActionMenu />}
+      {currentPage === 'voting' && <DayVotingMenu />}
+      {/* <ActionMenu title="Select another player"/> */}
     </div>
   );
 }

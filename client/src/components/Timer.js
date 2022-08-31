@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const CountdownTimer = () => {
-    return (
-        <span>Hello World</span>
+  return <span>Hello World</span>;
+};
 
-    );
-}
-
-export default CounterdownTimer；
-s
+export default CounterdownTimer;
