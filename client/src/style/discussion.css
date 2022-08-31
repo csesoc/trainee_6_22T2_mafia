@@ -1,0 +1,14 @@
+.Discussion {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+}
+
+.title {
+  width: 80%;
+}

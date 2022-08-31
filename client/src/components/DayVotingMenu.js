@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import Timer from './Timer';
+import Timer from './DiscussionTimer';
 import VotePanel from './VotePanel';
 import Graveyard from './Graveyard';
 import '../style/DayVotingMenuStyle.css';

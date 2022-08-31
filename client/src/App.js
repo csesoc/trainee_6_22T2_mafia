@@ -7,6 +7,7 @@ import PlayerSelectMenu from './components/PlayerSelectMenu';
 import ActionMenu from './components/ActionMenu';
 import DayVotingMenu from './components/DayVotingMenu';
 import { GameContext } from './GameContext';
+import Discussion from './components/Discussion';
 
 function App() {
   const { currentPage } = useContext(GameContext);
@@ -22,6 +23,7 @@ function App() {
       {currentPage === 'main' && <MainMenu />}
       {currentPage === 'actionMenu' && <ActionMenu />}
       {currentPage === 'voting' && <DayVotingMenu />}
+      {currentPage === 'discussion' && <Discussion />}
       {/* <ActionMenu title="Select another player"/> */}
     </div>
   );
