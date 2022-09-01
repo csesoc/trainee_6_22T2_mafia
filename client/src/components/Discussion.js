@@ -4,6 +4,7 @@ import Graveyard from './Graveyard';
 import RoleList from './RoleList';
 import { GameContext } from '../GameContext';
 import '../style/discussion.css';
+import '../style/circle.css';
 
 const Discussion = () => {
   const { dayNum } = useContext(GameContext);
@@ -17,6 +18,13 @@ const Discussion = () => {
       </div>
       <div className="container" style={{ 'justify-content': 'space-between' }}>
         <RoleList />
+        <div className="circle">
+          <div className="tick"></div>
+          <div className="tick"></div>
+          <div className="tick"></div>
+          <div className="tick"></div>
+        </div>
+        <div className="circle2"></div>
         <Graveyard />
       </div>
     </div>
