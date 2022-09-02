@@ -1,6 +1,38 @@
 import React, { createContext, useState } from 'react';
 
+/* Roles:
+  - name: string
+  - help: short role description
+  - count: number of that role
+  - isEvil: whether the role is 'evil' (evil roles are the roles that win if mafia win)
+    */
+const defaultRoles = [
+  {
+    roleId: 0,
+    name: 'Mafia',
+    help: 'Selects a player to kill every night',
+    count: 0,
+    isEvil: true,
+  },
+  {
+    roleId: 1,
+    name: 'Doctor',
+    help: 'Selects a player to save every night',
+    count: 0,
+    isEvil: false,
+  },
+  {
+    roleId: 2,
+    name: 'Barista',
+    help: 'Makes coffee',
+    count: 0,
+    isEvil: false,
+  },
+];
+
 export const GameContext = createContext({
+  roles: [...defaultRoles],
+  setRoles: () => {},
   players: [],
   setPlayers: () => {},
   numMafia: 0,
@@ -18,35 +50,7 @@ export const GameContext = createContext({
 });
 
 const GameContextProvider = ({ children }) => {
-  /* Roles:
-  - name: string
-  - help: short role description
-  - count: number of that role
-  - isEvil: whether the role is 'evil' (evil roles are the roles that win if mafia win)
-   */
-  const [roles, setRoles] = useState([
-    {
-      roleId: 0,
-      name: 'Mafia',
-      help: 'Selects a player to kill every night',
-      count: 0,
-      isEvil: true,
-    },
-    {
-      roleId: 1,
-      name: 'Doctor',
-      help: 'Selects a player to save every night',
-      count: 0,
-      isEvil: false,
-    },
-    {
-      roleId: 2,
-      name: 'Barista',
-      help: 'Makes coffee',
-      count: 0,
-      isEvil: false,
-    },
-  ]);
+  const [roles, setRoles] = useState([...defaultRoles]);
   /* player fields: 
     - name (string)
     - alive (bool)
@@ -58,9 +62,9 @@ const GameContextProvider = ({ children }) => {
       - detective??
       - sheriff??
       - ??
-    - id (int) (index in array for easy retrieval)
-    - hasVoted: whether the player has voted in the current phase of the game, needs to be reset after/before each new phase
-    - currentVotes: how many votes there are against this player in the current phase of the game, needs to be reset after/before each new phase
+  - id (int) (index in array for easy retrieval)
+  - hasVoted: whether the player has voted in the current phase of the game, needs to be reset after/before each new phase
+  - currentVotes: how many votes there are against this player in the current phase of the game, needs to be reset after before each new phase
     */
   const [players, setPlayers] = useState([
     {
@@ -75,8 +79,8 @@ const GameContextProvider = ({ children }) => {
       name: 'MJ',
       alive: false,
       role: 'none',
-      id: 1,
       hasVoted: false,
+      id: 1,
       currentVotes: 1,
     },
     {
