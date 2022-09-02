@@ -128,6 +128,7 @@ const GameContextProvider = ({ children }) => {
   const [numTownspeople, setNumTownspeople] = useState(0);
   const [votingTime, setVotingTime] = useState(10);
   const [dayNum, setDayNum] = useState(0);
+  // change back to 'main' when pushing
   const [currentPage, setCurrentPage] = useState('main'); //options: 'main', 'voting', ...
   const [currentVoter, setCurrentVoter] = useState(players[0]);
 

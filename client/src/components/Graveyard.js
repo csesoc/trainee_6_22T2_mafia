@@ -14,7 +14,7 @@ const Graveyard = () => {
 
   return (
     <div className="graveyard">
-      <h2 className="title">Graveyard</h2>
+      <h2>Graveyard</h2>
       <div className="graveyardScroll">
         {deadPlayers.map((player) => (
           <div className="graveyardListItem">

@@ -85,7 +85,8 @@ const MainMenu = () => {
   const startGame = () => {
     if (verifyPlayers()) {
       setupGame();
-      setCurrentPage('voting');
+      // Change to 'voting' when pushing
+      setCurrentPage('discussion');
     }
     return;
   };
