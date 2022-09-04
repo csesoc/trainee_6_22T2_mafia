@@ -49,12 +49,15 @@ const ChooseRole = () => {
     const numPlayers = players.length;
     const numMafia = Math.floor(numPlayers / 3);
     const numDoctors = Math.floor((numPlayers - numMafia) / 2);
-    const numBaristas = numPlayers - numMafia - numDoctors;
+    const numDetectives = numPlayers - numMafia - numDoctors > 1 ? 1 : 0;
+    const numBaristas = numPlayers - numMafia - numDoctors - numDetectives;
     for (const role of roles) {
       if (role.name === 'Mafia') {
         addRole(role.roleId, numMafia - role.count);
       } else if (role.name === 'Doctor') {
         addRole(role.roleId, numDoctors - role.count);
+      } else if (role.name === 'Detective') {
+        addRole(role.roleId, numDetectives - role.count);
       } else if (role.name === 'Barista') {
         addRole(role.roleId, numBaristas - role.count);
       }

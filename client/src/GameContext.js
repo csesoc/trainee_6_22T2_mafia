@@ -23,6 +23,13 @@ const defaultRoles = [
   },
   {
     roleId: 2,
+    name: 'Detective',
+    help: 'Investigates whether players are evil',
+    count: 0,
+    isEvil: false,
+  },
+  {
+    roleId: 3,
     name: 'Barista',
     help: 'Makes coffee',
     count: 0,
