@@ -70,7 +70,7 @@ const GameContextProvider = ({ children }) => {
       alive: true,
       role: 'none',
       id: 0,
-      hasVoted: false,
+      hasVoted: true,
     },
     {
       name: 'MJ',
@@ -84,14 +84,14 @@ const GameContextProvider = ({ children }) => {
       alive: true,
       role: 'doctor',
       id: 2,
-      hasVoted: false,
+      hasVoted: true,
     },
     {
       name: 'Ahnaf',
       alive: true,
       role: 'none',
       id: 3,
-      hasVoted: false,
+      hasVoted: true,
     },
     {
       name: 'Suri',
@@ -126,7 +126,7 @@ const GameContextProvider = ({ children }) => {
   const [votingTime, setVotingTime] = useState(10);
   const [dayNum, setDayNum] = useState(0);
   const [isDay, setIsDay] = useState(true);
-  const [currentPage, setCurrPage] = useState('DayVoting'); //options: 'MainMenu', 'DayVoting', 'NightVoting', 'DeathMessage', 'SelectVoter', 'NightMessage', 'Discussion'
+  const [currentPage, setCurrentPage] = useState('DayVoting'); //options: 'MainMenu', 'DayVoting', 'NightVoting', 'DeathMessage', 'SelectVoter', 'NightMessage', 'Discussion'
   const [currentVoter, setCurrentVoter] = useState(players[0]);
 
   const initialContext = {

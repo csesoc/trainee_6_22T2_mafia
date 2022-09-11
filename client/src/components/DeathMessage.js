@@ -10,7 +10,7 @@ const DeathMessage = () => {
   const {
     players,
     setPlayers,
-    setCurrPage,
+    setCurrentPage,
     currentPage,
     votes,
     setVotes,
@@ -23,7 +23,6 @@ const DeathMessage = () => {
   const [deadPlayer, setDeadPlayer] = useState(-1);
 
   function calcDeath() {
-    console.log('calcDeath called');
     let highestKillVotes = [0]; //player id array
     let highestSaveVotes = [0]; //player id array
 
@@ -76,10 +75,10 @@ const DeathMessage = () => {
   const nextPhase = () => {
     if (isDay) {
       setIsDay(false);
-      setCurrPage('NightMessage');
+      setCurrentPage('NightMessage');
     } else {
       setIsDay(true);
-      setCurrPage('Discussion');
+      setCurrentPage('Discussion');
       setDayNum((dayNum) => dayNum + 1);
     }
     resetVotes();
@@ -105,6 +104,11 @@ const DeathMessage = () => {
     players.forEach((player) => (newVotes.save[player.id] = 0));
 
     setVotes(newVotes);
+
+    let newPlayers = [...players];
+    newPlayers.forEach((player) => (player.hasVoted = false));
+
+    setPlayers(newPlayers);
   };
 
   useEffect(() => {

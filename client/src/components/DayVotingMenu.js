@@ -12,7 +12,7 @@ const DayVotingMenu = () => {
     dayNum,
     votingTime,
     currentVoter,
-    setCurrPage,
+    setCurrentPage,
     votes,
     setVotes,
   } = useContext(GameContext);
@@ -59,9 +59,9 @@ const DayVotingMenu = () => {
     });
 
     if (moreToVote) {
-      setCurrPage('SelectVoter');
+      setCurrentPage('SelectVoter');
     } else {
-      setCurrPage('DeathMessage');
+      setCurrentPage('DeathMessage');
     }
   }
 
