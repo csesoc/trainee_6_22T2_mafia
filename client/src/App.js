@@ -4,6 +4,13 @@ import MainMenu from './components/MainMenu';
 import DeathMessage from './components/DeathMessage';
 import { GameContext } from './GameContext';
 import './App.css';
+import { useContext } from 'react';
+import MainMenu from './components/MainMenu';
+import TurnSelectScreen from './components/TurnSelectScreen';
+import PlayerSelectMenu from './components/PlayerSelectMenu';
+import ActionMenu from './components/ActionMenu';
+import DayVotingMenu from './components/DayVotingMenu';
+import { GameContext } from './GameContext';
 
 function App() {
   const { currentPage } = useContext(GameContext);
@@ -24,6 +31,7 @@ function App() {
   };
 
   return <div className="App">{getCurrentPage()}</div>;
+  // const [page, setPage] = useState('turnSelect')
 }
 
 export default App;

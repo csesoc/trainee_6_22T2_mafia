@@ -1,6 +1,38 @@
 import React, { createContext, useState } from 'react';
 
+/* Roles:
+  - name: string
+  - help: short role description
+  - count: number of that role
+  - isEvil: whether the role is 'evil' (evil roles are the roles that win if mafia win)
+    */
+const defaultRoles = [
+  {
+    roleId: 0,
+    name: 'Mafia',
+    help: 'Selects a player to kill every night',
+    count: 0,
+    isEvil: true,
+  },
+  {
+    roleId: 1,
+    name: 'Doctor',
+    help: 'Selects a player to save every night',
+    count: 0,
+    isEvil: false,
+  },
+  {
+    roleId: 2,
+    name: 'Barista',
+    help: 'Makes coffee',
+    count: 0,
+    isEvil: false,
+  },
+];
+
 export const GameContext = createContext({
+  roles: [...defaultRoles],
+  setRoles: () => {},
   players: [],
   setPlayers: () => {},
   numMafia: 0,
@@ -12,12 +44,13 @@ export const GameContext = createContext({
   dayNum: 0,
   setDayNum: () => {},
   currentPage: 'main',
-  setCurrPage: () => {},
+  setCurrentPage: () => {},
   currentVoter: 0,
   setCurrentVoter: () => {},
 });
 
 const GameContextProvider = ({ children }) => {
+  const [roles, setRoles] = useState([...defaultRoles]);
   /* player fields: 
     - name (string)
     - alive (bool)
@@ -35,7 +68,7 @@ const GameContextProvider = ({ children }) => {
     {
       name: 'James',
       alive: true,
-      role: 'barista',
+      role: 'none',
       id: 0,
       hasVoted: false,
     },
@@ -56,28 +89,28 @@ const GameContextProvider = ({ children }) => {
     {
       name: 'Ahnaf',
       alive: true,
-      role: 'detective',
+      role: 'none',
       id: 3,
       hasVoted: false,
     },
     {
       name: 'Suri',
       alive: true,
-      role: 'mafia',
+      role: 'none',
       id: 4,
       hasVoted: true,
     },
     {
       name: 'Linda',
       alive: true,
-      role: 'barista',
+      role: 'none',
       id: 5,
       hasVoted: true,
     },
     {
       name: 'Blair',
       alive: true,
-      role: 'barista',
+      role: 'none',
       id: 6,
       hasVoted: true,
     },
@@ -97,6 +130,8 @@ const GameContextProvider = ({ children }) => {
   const [currentVoter, setCurrentVoter] = useState(players[0]);
 
   const initialContext = {
+    roles,
+    setRoles,
     players,
     setPlayers,
     numMafia,
@@ -108,7 +143,7 @@ const GameContextProvider = ({ children }) => {
     dayNum,
     setDayNum,
     currentPage,
-    setCurrPage,
+    setCurrentPage,
     currentVoter,
     setCurrentVoter,
     votes,

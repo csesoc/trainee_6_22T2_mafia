@@ -1,61 +1,74 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import Role from './Role';
 import '../style/roles.css';
 import '../style/helpTip.css';
 import '../style/errors.css';
+import { GameContext } from '../GameContext';
 
 const ChooseRole = () => {
-  // Front end:
-  // In future use roles = getRoles.map(...), pass it down through App.js?
-  const [roles, setRoles] = useState([
-    {
-      name: 'Mafia',
-      help: 'Selects a player to kill every night',
-      count: 0,
-    },
-    {
-      name: 'Doctor',
-      help: 'Selects a player to save every night',
-      count: 0,
-    },
-    {
-      name: 'Barista',
-      help: 'Makes coffee',
-      count: 0,
-    },
-  ]);
+  const { roles, setRoles, players, setNumMafia, setNumTownspeople } =
+    useContext(GameContext);
 
-  const addRole = (index, change) => {
+  const getRoleIndex = (roleId) => {
+    return roles.map((role) => role.roleId).indexOf(roleId);
+  };
+
+  const roleIsMafia = (roleId) => {
+    return roles[getRoleIndex(roleId)].isEvil;
+  };
+
+  const addRole = (roleId, change) => {
     const newRoles = [...roles];
-    if (newRoles[index].count + change < 0) {
-      setError(index, true);
+    if (newRoles[getRoleIndex(roleId)].count + change < 0) {
+      setRoleError(roleId, true);
     } else {
-      newRoles[index].count += change;
-      setError(index, false);
+      roleIsMafia(roleId)
+        ? setNumMafia((numMafia) => numMafia + change)
+        : setNumTownspeople((numTownspeople) => numTownspeople + change);
+      newRoles[getRoleIndex(roleId)].count += change;
+      setRoleError(roleId, false);
     }
     setRoles(newRoles);
   };
 
-  const [errorMsgs, setErrorMsgs] = useState(
-    [...Array(roles.length)].fill(false)
-  );
+  const resetRoleErrors = () =>
+    roles.reduce((prev, next) => ({ ...prev, [next.roleId]: false }), {});
 
-  const setError = (index, val) => {
-    const newErrorMsgs = [...Array(roles.length).fill(false)];
-    newErrorMsgs[index] = val;
-    setErrorMsgs(newErrorMsgs);
+  const [roleErrors, setRoleErrors] = useState(resetRoleErrors());
+
+  const setRoleError = (roleId, val) => {
+    const newRoleErrors = resetRoleErrors();
+    newRoleErrors[roleId] = val;
+    setRoleErrors(newRoleErrors);
   };
+
+  useEffect(() => {
+    // function to automatically assign role numbers upon clicking `Select Roles`
+    // To be updated when `Add Player` is implemented
+    const numPlayers = players.length;
+    const numMafia = Math.floor(numPlayers / 3);
+    const numDoctors = Math.floor((numPlayers - numMafia) / 2);
+    const numBaristas = numPlayers - numMafia - numDoctors;
+    for (const role of roles) {
+      if (role.name === 'Mafia') {
+        addRole(role.roleId, numMafia - role.count);
+      } else if (role.name === 'Doctor') {
+        addRole(role.roleId, numDoctors - role.count);
+      } else if (role.name === 'Barista') {
+        addRole(role.roleId, numBaristas - role.count);
+      }
+    }
+  }, []);
 
   return (
     <div className="roles">
-      {roles.map((role, index) => (
+      {roles.map((role) => (
         <Role
-          key={index}
-          index={index}
+          key={role.roleId}
           role={role}
           addRole={addRole}
-          errors={errorMsgs}
+          roleErrors={roleErrors}
         />
       ))}
     </div>
