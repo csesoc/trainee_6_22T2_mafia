@@ -30,8 +30,6 @@ const GameContextProvider = ({ children }) => {
       - sheriff??
       - ??
     - id (int) (index in array for easy retrieval)
-    - hasVoted: whether the player has voted in the current phase of the game, needs to be reset after/before each new phase
-    - currentVotes: how many votes there are against this player in the current phase of the game, needs to be reset after/before each new phase
     */
   const [players, setPlayers] = useState([
     {
@@ -40,23 +38,20 @@ const GameContextProvider = ({ children }) => {
       role: 'barista',
       id: 0,
       hasVoted: false,
-      currentVotes: 0,
     },
     {
       name: 'MJ',
       alive: false,
       role: 'mafia',
       id: 1,
-      hasVoted: false,
-      currentVotes: 1,
+      hasVoted: true,
     },
     {
       name: 'Nyah',
-      alive: false,
+      alive: true,
       role: 'doctor',
       id: 2,
-      hasVoted: false,
-      currentVotes: 0,
+      hasVoted: true,
     },
     {
       name: 'Ahnaf',
@@ -64,7 +59,6 @@ const GameContextProvider = ({ children }) => {
       role: 'detective',
       id: 3,
       hasVoted: true,
-      currentVotes: 0,
     },
     {
       name: 'Suri',
@@ -72,36 +66,34 @@ const GameContextProvider = ({ children }) => {
       role: 'mafia',
       id: 4,
       hasVoted: true,
-      currentVotes: 0,
     },
     {
       name: 'Linda',
       alive: true,
       role: 'barista',
       id: 5,
-      hasVoted: false,
-      currentVotes: 0,
+      hasVoted: true,
     },
     {
       name: 'Blair',
       alive: true,
       role: 'barista',
       id: 6,
-      hasVoted: false,
-      currentVotes: 0,
+      hasVoted: true,
     },
   ]);
   const [votes, setVotes] = useState({
     //arrays indexed by by player id
-    kill: [0, 1, 0, 3, 0, 1, 0],
-    save: [0, 0, 0, 0, 1, 0, 1],
+    kill: [0, 1, 1, 1, 1, 0, 0],
+    save: [0, 0, 0, 0, 0, 0, 0],
   });
 
   const [numMafia, setNumMafia] = useState(0);
   const [numTownspeople, setNumTownspeople] = useState(0);
   const [votingTime, setVotingTime] = useState(10);
   const [dayNum, setDayNum] = useState(0);
-  const [currentPage, setCurrPage] = useState('dayVoting'); //options: 'main', 'dayVoting', 'nightVoting'...
+  const [isDay, setIsDay] = useState(true);
+  const [currentPage, setCurrPage] = useState('DayVoting'); //options: 'MainMenu', 'DayVoting', 'NightVoting', 'DeathMessage', 'SelectVoter', 'NightMessage', 'Discussion'
   const [currentVoter, setCurrentVoter] = useState(players[0]);
 
   const initialContext = {
@@ -121,6 +113,8 @@ const GameContextProvider = ({ children }) => {
     setCurrentVoter,
     votes,
     setVotes,
+    isDay,
+    setIsDay,
   };
 
   return (

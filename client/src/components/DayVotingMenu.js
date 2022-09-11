@@ -12,13 +12,16 @@ const DayVotingMenu = () => {
     dayNum,
     votingTime,
     currentVoter,
-    setCurrentPage,
+    setCurrPage,
+    votes,
+    setVotes,
   } = useContext(GameContext);
+
   const [time, setTime] = useState(votingTime);
 
   const confirmVote = () => {
     if (currentVoter.hasVoted) {
-      setCurrentPage('main');
+      goToNextVoter();
       return;
     }
 
@@ -29,23 +32,44 @@ const DayVotingMenu = () => {
         document.getElementById('radio' + player.name).checked
       ) {
         let newPlayers = [...players];
-        newPlayers[player.id].currentVotes++;
         newPlayers[currentVoter.id].hasVoted = true;
         setPlayers(newPlayers);
+
+        let newVotes = {
+          kill: [...votes.kill],
+          save: [...votes.save],
+        };
+        newVotes.kill[player.id]++;
+        setVotes(newVotes);
         voted = true;
       }
     });
 
-    if (voted) {
-      setCurrentPage('main');
+    if (voted || time <= 0) {
+      goToNextVoter();
     }
   };
+
+  function goToNextVoter() {
+    let moreToVote = false;
+    players.forEach((player) => {
+      if (player.hasVoted === false) {
+        moreToVote = true;
+      }
+    });
+
+    if (moreToVote) {
+      setCurrPage('SelectVoter');
+    } else {
+      setCurrPage('DeathMessage');
+    }
+  }
 
   return (
     <div className="dayVoting">
       <div className="header">
         <h1 className="title">Day {dayNum}: Voting</h1>
-        <Timer time={time} setTime={setTime} currentVoter={currentVoter} />
+        <Timer nextPhase={confirmVote} time={time} setTime={setTime} />
       </div>
       <h3 className="instructions">
         Vote for a person to kill, voting ends in {time} seconds.

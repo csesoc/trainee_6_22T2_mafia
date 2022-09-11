@@ -1,107 +1,129 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import '../style/deathMessage.css';
 import '../style/button.css';
 import { GameContext } from '../GameContext';
 
 const DeathMessage = () => {
+  //TODO
+  //should a player be able to vote for themselves???
+
   const {
     players,
     setPlayers,
-    dayNum,
     setCurrPage,
     currentPage,
     votes,
     setVotes,
+    isDay,
+    setIsDay,
+    dayNum,
+    setDayNum,
   } = useContext(GameContext);
 
-  let deadPlayer = {};
+  const [deadPlayer, setDeadPlayer] = useState(-1);
 
-  const calcDeath = () => {
+  function calcDeath() {
     console.log('calcDeath called');
-    let highestKillVotes = { votes: 0, name: '', role: '' };
-    let highestSaveVotes = { votes: 0, name: '' };
+    let highestKillVotes = [0]; //player id array
+    let highestSaveVotes = [0]; //player id array
 
-    players.forEach((player) =>
-      updateHighest(player, highestKillVotes, highestSaveVotes)
-    );
-
-    console.log('highestKillVotes is ' + highestKillVotes.name);
-
-    if (currentPage === 'nightVoting') {
-      //night time: save and investigate votes count.
-      if (highestKillVotes.name === highestSaveVotes.name) {
-        return 'Noone...';
-      }
-    }
-
-    let newPlayers = [];
     players.forEach((player) => {
-      if (player.name === highestKillVotes.name) {
-        deadPlayer = player;
-        deadPlayer.alive = false;
-        newPlayers.push(deadPlayer);
-      } else {
-        newPlayers.push(player);
+      if (player.id !== 0) {
+        if (votes.kill[player.id] > votes.kill[highestKillVotes[0]]) {
+          highestKillVotes = [player.id];
+        } else if (votes.kill[player.id] === votes.kill[highestKillVotes[0]]) {
+          highestKillVotes.push(player.id);
+        }
+        if (votes.save[player.id] > votes.save[highestSaveVotes[0]]) {
+          highestSaveVotes = [player.id];
+        } else if (votes.save[player.id] === votes.save[highestSaveVotes[0]]) {
+          highestSaveVotes.push(player.id);
+        }
       }
     });
-    console.log('deadPlayer is ' + deadPlayer.name);
+
+    //choose a random player in the highestKillVotes array to kill
+    let toKill =
+      highestKillVotes[Math.floor(Math.random() * highestKillVotes.length)];
+
+    let toSave = -1; //invalid array index
+    if (doctorAlive()) {
+      //choose a random player in the highestSaveVotes array to save
+      toSave =
+        highestSaveVotes[Math.floor(Math.random() * highestSaveVotes.length)];
+    }
+
+    if (currentPage === 'nightVoting') {
+      //night time: save votes count.
+      if (toKill === toSave) {
+        return;
+      }
+    }
+
+    setDeadPlayer(toKill);
+    let newPlayers = [...players];
+    newPlayers[toKill] = {
+      name: players[toKill].name,
+      alive: false,
+      role: players[toKill].role,
+      id: toKill,
+      hasVoted: players[toKill].hasVoted,
+    };
+
     setPlayers(newPlayers);
-
-    return deadPlayer.name;
-  };
-
-  const updateHighest = (player, highestKillVotes, highestSaveVotes) => {
-    if (votes.kill[player.id] > highestKillVotes.votes) {
-      highestKillVotes = {
-        votes: votes.kill.player,
-        name: player.name,
-      };
-    }
-    if (votes.save[player.id] > highestSaveVotes.votes) {
-      highestSaveVotes = {
-        votes: votes.save.player,
-        name: player.name,
-      };
-    }
-  };
+  }
 
   const nextPhase = () => {
-    if (currentPage === 'dayVoting') {
-      setCurrPage('nightMessage');
-      console.log("current page set to 'nightMessage'");
+    if (isDay) {
+      setIsDay(false);
+      setCurrPage('NightMessage');
     } else {
-      setCurrPage('discussion');
-      console.log("current page set to 'discussion'");
+      setIsDay(true);
+      setCurrPage('Discussion');
+      setDayNum((dayNum) => dayNum + 1);
     }
-
     resetVotes();
   };
+
+  function doctorAlive() {
+    let doctorFound = false;
+    players.forEach((player) => {
+      if (player.alive && player.role === 'doctor') {
+        doctorFound = true;
+        return;
+      }
+    });
+    return doctorFound;
+  }
 
   const resetVotes = () => {
     let newVotes = {
       ...votes,
     };
-    //TODO I think i need to use votes as an array rather than object so that i can use player's id as indicies.
+
     players.forEach((player) => (newVotes.kill[player.id] = 0));
     players.forEach((player) => (newVotes.save[player.id] = 0));
 
     setVotes(newVotes);
   };
 
-  calcDeath();
+  useEffect(() => {
+    calcDeath();
+  }, []);
 
   return (
     <div className="deathMessage">
       <h1 className="dayHeader">
-        {currentPage === 'dayVoting' ? 'Day' : 'Night'}
+        {isDay ? 'Day ' : 'Night '}
         {dayNum}
       </h1>
-      <h1 className="deathName">DEATH: {deadPlayer.name}</h1>
+      <h1 className="deathName">
+        DEATH: {deadPlayer === -1 ? 'Noone...' : players[deadPlayer].name}
+      </h1>
       <h2 className="deathDescription">
-        {currentPage === 'dayVoting'
-          ? deadPlayer.name + ' was a ' + deadPlayer.role
-          : ''}{' '}
-        was
+        {isDay && deadPlayer !== -1
+          ? players[deadPlayer].name + ' was a ' + players[deadPlayer].role
+          : ''}
       </h2>
       <button className="button" onClick={nextPhase}>
         lol
