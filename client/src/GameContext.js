@@ -51,14 +51,14 @@ const GameContextProvider = ({ children }) => {
       alive: true,
       role: 'doctor',
       id: 2,
-      hasVoted: true,
+      hasVoted: false,
     },
     {
       name: 'Ahnaf',
       alive: true,
       role: 'detective',
       id: 3,
-      hasVoted: true,
+      hasVoted: false,
     },
     {
       name: 'Suri',
