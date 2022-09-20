@@ -70,7 +70,7 @@ const GameContextProvider = ({ children }) => {
       alive: true,
       role: 'none',
       id: 0,
-      hasVoted: true,
+      hasVoted: false,
     },
     {
       name: 'MJ',
@@ -117,15 +117,15 @@ const GameContextProvider = ({ children }) => {
   ]);
   const [votes, setVotes] = useState({
     //arrays indexed by by player id
-    kill: [0, 1, 1, 1, 1, 0, 0],
-    save: [0, 0, 0, 0, 0, 0, 0],
+    kill: [0, 0, 3, 2, 1, 2, 0],
+    save: [3, 0, 1, 0, 2, 0, 0],
   });
 
   const [numMafia, setNumMafia] = useState(0);
   const [numTownspeople, setNumTownspeople] = useState(0);
   const [votingTime, setVotingTime] = useState(10);
   const [dayNum, setDayNum] = useState(0);
-  const [isDay, setIsDay] = useState(true);
+  const [isDay, setIsDay] = useState(false);
   const [currentPage, setCurrentPage] = useState('DayVoting'); //options: 'MainMenu', 'DayVoting', 'NightVoting', 'DeathMessage', 'SelectVoter', 'NightMessage', 'Discussion'
   const [currentVoter, setCurrentVoter] = useState(players[0]);
 

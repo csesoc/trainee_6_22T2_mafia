@@ -11,7 +11,6 @@ const DeathMessage = () => {
     players,
     setPlayers,
     setCurrentPage,
-    currentPage,
     votes,
     setVotes,
     isDay,
@@ -23,51 +22,62 @@ const DeathMessage = () => {
   const [deadPlayer, setDeadPlayer] = useState(-1);
 
   function calcDeath() {
-    let highestKillVotes = [0]; //player id array
-    let highestSaveVotes = [0]; //player id array
+    let finalVotes = []; //all player ids and their asscosiated votes
 
     players.forEach((player) => {
-      if (player.id !== 0) {
-        if (votes.kill[player.id] > votes.kill[highestKillVotes[0]]) {
-          highestKillVotes = [player.id];
-        } else if (votes.kill[player.id] === votes.kill[highestKillVotes[0]]) {
-          highestKillVotes.push(player.id);
-        }
-        if (votes.save[player.id] > votes.save[highestSaveVotes[0]]) {
-          highestSaveVotes = [player.id];
-        } else if (votes.save[player.id] === votes.save[highestSaveVotes[0]]) {
-          highestSaveVotes.push(player.id);
-        }
-      }
+      finalVotes.push({
+        player: player.id,
+        killVotes: votes.kill[player.id],
+        saveVotes: votes.save[player.id],
+      });
     });
 
-    //choose a random player in the highestKillVotes array to kill
-    let toKill =
-      highestKillVotes[Math.floor(Math.random() * highestKillVotes.length)];
+    //sort the finalVotes array by killvotes, descending order
+    finalVotes.sort((a, b) => {
+      if (!players[a.player].alive) {
+        return 1;
+      }
 
-    let toSave = -1; //invalid array index
-    if (doctorAlive()) {
-      //choose a random player in the highestSaveVotes array to save
-      toSave =
-        highestSaveVotes[Math.floor(Math.random() * highestSaveVotes.length)];
-    }
+      if (!players[b.player].alive) {
+        return -1;
+      }
 
-    if (currentPage === 'nightVoting') {
-      //night time: save votes count.
-      if (toKill === toSave) {
+      if (b.killVotes - a.killVotes === 0) {
+        //choose random positive or negative number: two elements are put in random order if votes are the same.
+        return Math.random() * 2 - 1;
+      }
+      return b.killVotes - a.killVotes;
+    });
+    const toKill = finalVotes[0].player;
+
+    if (doctorAlive() && !isDay) {
+      //sort the finalVotes array by savevotes, descending order
+      finalVotes.sort((a, b) => {
+        if (!players[a.player].alive) {
+          return 1;
+        }
+
+        if (!players[b.player].alive) {
+          return -1;
+        }
+
+        if (b.saveVotes - a.saveVotes === 0) {
+          //choose random positive or negative number: two elements are put in random order if votes are the same.
+          return Math.random() * 2 - 1;
+        }
+        return b.saveVotes - a.saveVotes;
+      });
+
+      if (finalVotes[0].player === toKill) {
         return;
+        //the player to kill has been saved, so noone dies.
+        //the deadPlayer useSate is already -1 so no need to update.
       }
     }
 
     setDeadPlayer(toKill);
     let newPlayers = [...players];
-    newPlayers[toKill] = {
-      name: players[toKill].name,
-      alive: false,
-      role: players[toKill].role,
-      id: toKill,
-      hasVoted: players[toKill].hasVoted,
-    };
+    newPlayers[toKill].alive = false;
 
     setPlayers(newPlayers);
   }
