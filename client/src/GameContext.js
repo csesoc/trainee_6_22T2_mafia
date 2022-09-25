@@ -47,6 +47,10 @@ export const GameContext = createContext({
   setCurrentPage: () => {},
   currentVoter: 0,
   setCurrentVoter: () => {},
+  winner: {},
+  setWinner: () => {},
+  mafiaRoleList: [],
+  townRoleList: [],
 });
 
 const GameContextProvider = ({ children }) => {
@@ -75,14 +79,14 @@ const GameContextProvider = ({ children }) => {
     {
       name: 'MJ',
       alive: false,
-      role: 'mafia',
+      role: 'none',
       id: 1,
       hasVoted: true,
     },
     {
       name: 'Nyah',
       alive: true,
-      role: 'doctor',
+      role: 'mafia',
       id: 2,
       hasVoted: true,
     },
@@ -117,7 +121,7 @@ const GameContextProvider = ({ children }) => {
   ]);
   const [votes, setVotes] = useState({
     //arrays indexed by by player id
-    kill: [0, 0, 3, 2, 1, 2, 0],
+    kill: [0, 0, 0, 0, 0, 0, 0],
     save: [3, 0, 1, 0, 2, 0, 0],
   });
 
@@ -128,6 +132,9 @@ const GameContextProvider = ({ children }) => {
   const [isDay, setIsDay] = useState(false);
   const [currentPage, setCurrentPage] = useState('DayVoting'); //options: 'MainMenu', 'DayVoting', 'NightVoting', 'DeathMessage', 'SelectVoter', 'NightMessage', 'Discussion'
   const [currentVoter, setCurrentVoter] = useState(players[0]);
+  const [winner, setWinner] = useState({}); //if no winner, empty string. Otherwise 'MAFIA', 'TOWN', 'JOKER'
+  const mafiaRoleList = ['mafia', 'godfather'];
+  const townRoleList = ['none', 'doctor', 'investigator', 'joker'];
 
   const initialContext = {
     roles,
@@ -150,6 +157,10 @@ const GameContextProvider = ({ children }) => {
     setVotes,
     isDay,
     setIsDay,
+    winner,
+    setWinner,
+    mafiaRoleList,
+    townRoleList,
   };
 
   return (

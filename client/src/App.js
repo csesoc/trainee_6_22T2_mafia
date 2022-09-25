@@ -7,6 +7,7 @@ import DeathMessage from './components/DeathMessage';
 import TurnSelectScreen from './components/TurnSelectScreen';
 import PlayerSelectMenu from './components/PlayerSelectMenu';
 import ActionMenu from './components/ActionMenu';
+import GameOver from './components/GameOver';
 
 function App() {
   const { currentPage } = useContext(GameContext);
@@ -23,6 +24,10 @@ function App() {
         return <PlayerSelectMenu />;
       case 'SelectAction':
         return <ActionMenu />;
+      case 'GameOver':
+        return <GameOver />;
+      case 'TurnSelect':
+        return <TurnSelectScreen />;
       default:
         return <></>;
     }

@@ -1,0 +1,21 @@
+.playerList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.winnerList {
+  padding: 20px;
+  margin: 10px;
+  background-color: rgb(59, 59, 59);
+  border-radius: 10px;
+  width: 30%;
+}
+
+.loserList {
+  padding: 20px;
+  margin: 10px;
+  background-color: rgb(59, 59, 59);
+  border-radius: 10px;
+  width: 30%;
+}

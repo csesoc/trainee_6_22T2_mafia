@@ -17,11 +17,22 @@ const DeathMessage = () => {
     setIsDay,
     dayNum,
     setDayNum,
+    setWinner,
+    mafiaRoleList,
+    townRoleList,
   } = useContext(GameContext);
 
   const [deadPlayer, setDeadPlayer] = useState(-1);
+  let firstTime = true;
 
   function calcDeath() {
+    //its so weird it seems to be doing everything twice, this is to try stop it.
+    if (!firstTime) {
+      return;
+    }
+
+    firstTime = false;
+
     let finalVotes = []; //all player ids and their asscosiated votes
 
     players.forEach((player) => {
@@ -48,6 +59,7 @@ const DeathMessage = () => {
       }
       return b.killVotes - a.killVotes;
     });
+
     const toKill = finalVotes[0].player;
 
     if (doctorAlive() && !isDay) {
@@ -79,7 +91,46 @@ const DeathMessage = () => {
     let newPlayers = [...players];
     newPlayers[toKill].alive = false;
 
+    if (newPlayers[toKill].role === 'joker' && isDay) {
+      //joker succeeded in their task: getting themself voted off
+      triggerGameOver('JOKER');
+    }
+
     setPlayers(newPlayers);
+  }
+
+  function checkGameOver() {
+    //game over if:
+    //- num mafia > num townspeople
+    //- no mafia left
+
+    let numMafia = 0;
+    let numTownspeople = 0;
+    for (const player of players) {
+      if (player.alive) {
+        if (mafiaRoleList.includes(player.role, 0)) {
+          numMafia++;
+        } else if (townRoleList.includes(player.role, 0)) {
+          numTownspeople++;
+        }
+      }
+    }
+
+    if (numMafia === 0) {
+      triggerGameOver('TOWN');
+    } else if (numMafia > numTownspeople) {
+      triggerGameOver('MAFIA');
+    }
+  }
+
+  /**
+   *
+   * @param {string} winner
+   * winner is either: 'TOWN', 'MAFIA', or 'JOKER' (or others if we add them)
+   */
+  function triggerGameOver(winner) {
+    setWinner(winner);
+    setCurrentPage('GameOver');
   }
 
   const nextPhase = () => {
@@ -92,6 +143,8 @@ const DeathMessage = () => {
       setDayNum((dayNum) => dayNum + 1);
     }
     resetVotes();
+
+    checkGameOver();
   };
 
   function doctorAlive() {
