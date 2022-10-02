@@ -67,20 +67,22 @@ const GameContextProvider = ({ children }) => {
     - name (string)
     - alive (bool)
     - role (string) options:
+      - ''
       - barista
       - mafia
       - mafioso??
       - doctor??
       - detective??
       - sheriff??
-      - ??
-    - id (int) (index in array for easy retrieval)
+    - id (int)
+    - hasVoted (bool)
+    - currentVotes (int)
     */
   const [players, setPlayers] = useState([]);
-  const [playerId, setPlayerId] = useState(0);
+  const [playerId, setPlayerId] = useState(1);
   const generatePlayerId = () => {
     setPlayerId((playerId) => playerId + 1);
-    console.log(`player ID updated to ${playerId}`);
+    // Player ID's end in a 0 in case we need error checking:
     return playerId * 10;
   };
   const [votes, setVotes] = useState({

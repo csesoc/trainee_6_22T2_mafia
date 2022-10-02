@@ -14,20 +14,20 @@ function App() {
 
   const getCurrentPage = () => {
     switch (currentPage) {
-      case 'DayVoting':
-        return <DayVotingMenu />;
-      case 'DeathMessage':
-        return <DeathMessage />;
       case 'MainMenu':
         return <MainMenu />;
-      case 'SelectVoter':
-        return <PlayerSelectMenu />;
-      case 'SelectAction':
-        return <ActionMenu />;
-      case 'GameOver':
-        return <GameOver />;
       case 'TurnSelect':
         return <TurnSelectScreen />;
+      case 'SelectAction':
+        return <ActionMenu />;
+      case 'DeathMessage':
+        return <DeathMessage />;
+      case 'DayVoting':
+        return <DayVotingMenu />;
+      case 'SelectVoter':
+        return <PlayerSelectMenu />;
+      case 'GameOver':
+        return <GameOver />;
       default:
         return <></>;
     }
