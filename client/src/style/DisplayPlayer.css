@@ -1,0 +1,43 @@
+.DisplayPlayer {
+  display: flex;
+  /* Send items to the sides */
+  align-content: space-between;
+}
+
+.DisplayNameContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.DisplayName {
+  color: antiquewhite;
+  font-size: 16px;
+  /* Remove if unnecessary */
+  font-variant: small-caps;
+  border: 0px transparent;
+  background-color: inherit;
+  width: fit-content;
+  padding: 10px;
+}
+
+.DisplayName:focus {
+  color: black;
+  border: 1px solid darkgrey;
+}
+
+.DisplayPlayer button {
+  color: white;
+  background-color: red;
+  border: 1px solid red;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  /* display: inline-block; */
+  font-weight: bold;
+}
+
+.DisplayPlayer button:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}

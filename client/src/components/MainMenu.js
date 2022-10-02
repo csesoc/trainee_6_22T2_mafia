@@ -46,6 +46,8 @@ const MainMenu = () => {
 
   const resetMenuErrors = () => {
     return {
+      insufficientPlayers: false,
+      invalidNick: false,
       playerCountError: false,
       tooEvil: false,
     };
@@ -53,33 +55,66 @@ const MainMenu = () => {
 
   const [menuErrors, setMenuErrors] = useState(resetMenuErrors());
 
-  useEffect(() => {
-    setMenuErrors(resetMenuErrors());
-  }, [roles]);
-
   const setMenuError = (error) => {
     const newMenuErrors = { ...menuErrors };
     newMenuErrors[error] = true;
     setMenuErrors(newMenuErrors);
   };
 
-  const verifyPlayers = () => {
-    if (players.length !== numTownspeople + numMafia) {
-      setMenuError('playerCountError');
-      return false;
+  const duplicates = () => {
+    const usernames = {};
+    for (const player of players) {
+      const playerName = player.name;
+      if (usernames[playerName] !== undefined) {
+        return true;
+      } else {
+        usernames[playerName] = true;
+      }
     }
-    if (numTownspeople <= numMafia + 1) {
-      setMenuError('tooEvil');
-      return false;
-    }
-    return true;
+    return false;
   };
+
+  const invalidNick = () => {
+    const empty = players.reduce(
+      (prev, next) => prev || next.name.length === 0,
+      false
+    );
+    const dup = duplicates();
+    return empty || dup;
+  };
+
+  const verifyPlayers = () => {
+    let gameReady = true;
+    setMenuErrors(resetMenuErrors());
+    const numPlayers = players.length;
+    if (numPlayers <= 3) {
+      setMenuError('insufficientPlayers');
+      gameReady = false;
+    }
+    if (invalidNick()) {
+      setMenuError('invalidNick');
+      gameReady = false;
+    }
+    if (numPlayers > 3 && numPlayers !== numTownspeople + numMafia) {
+      setMenuError('playerCountError');
+      gameReady = false;
+    }
+    if (numPlayers > 3 && numTownspeople <= numMafia + 1) {
+      setMenuError('tooEvil');
+      gameReady = false;
+    }
+    return gameReady;
+  };
+
+  useEffect(() => {
+    verifyPlayers();
+  }, [roles, players.length]);
 
   const setupGame = () => {
     assignRoles(
       roles.reduce((prev, next) => ({ ...prev, [next.name]: next.count }), {})
     );
-    setDayNum(1);
+    setDayNum(0);
   };
 
   const startGame = () => {
@@ -101,15 +136,21 @@ const MainMenu = () => {
         </div>
         <div>
           <p>
-            {menuErrors['playerCountError'] &&
-              'Number of players is not equal to number of roles!'}
-            <br></br>
-            {menuErrors['tooEvil'] && 'Too many evil roles!'}
+            {menuErrors['insufficientPlayers'] && (
+              <p>You need at least four players!</p>
+            )}
+            {menuErrors['invalidNick'] && <p>Not all usernames are valid!</p>}
+            {menuErrors['playerCountError'] && (
+              <p>Number of players is not equal to number of roles!</p>
+            )}
+            {menuErrors['tooEvil'] && <p>Too many evil roles!</p>}
           </p>
           <p>
             Players: {players.length} / Mafia: {numMafia} / Townspeople:{' '}
             {numTownspeople}
           </p>
+          (If you think the errors are try switching between the two settings)
+          <br />
           <button onClick={startGame}>Begin!</button>
         </div>
       </div>

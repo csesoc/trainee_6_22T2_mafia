@@ -42,6 +42,7 @@ export const GameContext = createContext({
   setRoles: () => {},
   players: [],
   setPlayers: () => {},
+  generatePlayerId: () => {},
   numMafia: 0,
   setNumMafia: () => {},
   numTownspeople: 0,
@@ -73,64 +74,13 @@ const GameContextProvider = ({ children }) => {
   - hasVoted: whether the player has voted in the current phase of the game, needs to be reset after/before each new phase
   - currentVotes: how many votes there are against this player in the current phase of the game, needs to be reset after before each new phase
     */
-  const [players, setPlayers] = useState([
-    {
-      name: 'James',
-      alive: true,
-      role: 'none',
-      id: 0,
-      hasVoted: false,
-      currentVotes: 0,
-    },
-    {
-      name: 'MJ',
-      alive: false,
-      role: 'none',
-      hasVoted: false,
-      id: 1,
-      currentVotes: 1,
-    },
-    {
-      name: 'Nyah',
-      alive: false,
-      role: 'none',
-      id: 2,
-      hasVoted: false,
-      currentVotes: 0,
-    },
-    {
-      name: 'Ahnaf',
-      alive: true,
-      role: 'none',
-      id: 3,
-      hasVoted: true,
-      currentVotes: 0,
-    },
-    {
-      name: 'Suri',
-      alive: true,
-      role: 'none',
-      id: 4,
-      hasVoted: true,
-      currentVotes: 0,
-    },
-    {
-      name: 'Linda',
-      alive: true,
-      role: 'none',
-      id: 5,
-      hasVoted: false,
-      currentVotes: 0,
-    },
-    {
-      name: 'Blair',
-      alive: true,
-      role: 'none',
-      id: 6,
-      hasVoted: false,
-      currentVotes: 0,
-    },
-  ]);
+  const [players, setPlayers] = useState([]);
+  const [playerId, setPlayerId] = useState(0);
+  const generatePlayerId = () => {
+    setPlayerId((playerId) => playerId + 1);
+    console.log(`player ID updated to ${playerId}`);
+    return playerId * 10;
+  };
   const [numMafia, setNumMafia] = useState(0);
   const [numTownspeople, setNumTownspeople] = useState(0);
   const [votingTime, setVotingTime] = useState(10);
@@ -143,6 +93,7 @@ const GameContextProvider = ({ children }) => {
     setRoles,
     players,
     setPlayers,
+    generatePlayerId,
     numMafia,
     setNumMafia,
     numTownspeople,
