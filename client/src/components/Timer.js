@@ -1,37 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { GameContext } from '../GameContext';
 
-const Timer = ({ time, setTime, currentVoter }) => {
-  const { players, setPlayers, setCurrentPage } = useContext(GameContext);
+const Timer = ({ nextPhase, time, setTime }) => {
+  const { players, setPlayers, setCurrPage, votes, setVotes, currentVoter } =
+    useContext(GameContext);
 
-  let timerInterval;
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime((time) => time - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
-  const decrementTimer = () => {
-    if (time > 0) {
-      setTime(time - 1);
-    } else {
-      clearInterval(timerInterval);
-      players.forEach((player) => {
-        if (
-          player.alive &&
-          document.getElementById('radio' + player.name).checked
-        ) {
-          let newPlayers = [...players];
-          newPlayers[player.id].currentVotes++;
-          newPlayers[currentVoter.id].hasVoted = true;
-          setPlayers(newPlayers);
-        }
-      });
-
-      setCurrentPage('main');
+  useEffect(() => {
+    if (time <= 0) {
+      nextPhase(true);
     }
-  };
-
-  const startSetInterval = () => {
-    timerInterval = setInterval(decrementTimer, 1000);
-  };
-
-  startSetInterval();
+  }, [time]);
 
   return (
     <div>

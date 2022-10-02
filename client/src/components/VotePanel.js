@@ -6,7 +6,7 @@ const VotePanel = () => {
   const { players } = useContext(GameContext);
 
   let livePlayers = [];
-  players.forEach((item, index, array) => {
+  players.forEach((item) => {
     if (item.alive) {
       livePlayers.push(item);
     }

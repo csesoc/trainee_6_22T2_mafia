@@ -1,30 +1,40 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { GameContext } from './GameContext';
 import './App.css';
-import { useContext } from 'react';
+import DayVotingMenu from './components/DayVotingMenu';
 import MainMenu from './components/MainMenu';
+import DeathMessage from './components/DeathMessage';
 import TurnSelectScreen from './components/TurnSelectScreen';
 import PlayerSelectMenu from './components/PlayerSelectMenu';
 import ActionMenu from './components/ActionMenu';
-import DayVotingMenu from './components/DayVotingMenu';
-import { GameContext } from './GameContext';
+import GameOver from './components/GameOver';
 
 function App() {
   const { currentPage } = useContext(GameContext);
 
+  const getCurrentPage = () => {
+    switch (currentPage) {
+      case 'DayVoting':
+        return <DayVotingMenu />;
+      case 'DeathMessage':
+        return <DeathMessage />;
+      case 'MainMenu':
+        return <MainMenu />;
+      case 'SelectVoter':
+        return <PlayerSelectMenu />;
+      case 'SelectAction':
+        return <ActionMenu />;
+      case 'GameOver':
+        return <GameOver />;
+      case 'TurnSelect':
+        return <TurnSelectScreen />;
+      default:
+        return <></>;
+    }
+  };
+
+  return <div className="App">{getCurrentPage()}</div>;
   // const [page, setPage] = useState('turnSelect')
-
-  return (
-    <div className="App">
-      {/* if (page === 'turnSelect' ? <TurnSelectScreen title="Select which player you are!" : <ActionMenu title="Select another player" ) */}
-
-      {/* <TurnSelectScreen /> */}
-      {/* <ActionMenu /> */}
-      {currentPage === 'main' && <MainMenu />}
-      {currentPage === 'actionMenu' && <ActionMenu />}
-      {currentPage === 'voting' && <DayVotingMenu />}
-      {/* <ActionMenu title="Select another player"/> */}
-    </div>
-  );
 }
 
 export default App;
