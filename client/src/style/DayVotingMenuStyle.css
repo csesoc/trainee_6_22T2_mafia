@@ -6,7 +6,7 @@
 .header {
   display: flex;
   flex-direction: row;
-  height: 50px;
+  height: 80px;
 }
 
 .title {
@@ -23,7 +23,7 @@
 
 .confirmButton {
   width: 80%;
-  background-color: rgb(56, 56, 56);
+  background-color: rgb(59, 59, 59);
   border: none;
   color: white;
   font-size: 24px;

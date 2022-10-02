@@ -34,7 +34,7 @@
   flex-direction: column;
   overflow: scroll;
   overflow-x: hidden;
-  max-height: 80%;
+  max-height: 70%;
 }
 
 .voteListItem {
@@ -42,6 +42,7 @@
   flex-direction: row;
   margin: 8px;
   background-color: rgb(56, 56, 56);
+  border-radius: 5px;
 }
 
 .nameLabel {

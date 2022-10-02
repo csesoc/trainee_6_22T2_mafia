@@ -47,6 +47,10 @@ export const GameContext = createContext({
   setCurrentPage: () => {},
   currentVoter: 0,
   setCurrentVoter: () => {},
+  winner: {},
+  setWinner: () => {},
+  mafiaRoleList: [],
+  townRoleList: [],
 });
 
 const GameContextProvider = ({ children }) => {
@@ -62,9 +66,7 @@ const GameContextProvider = ({ children }) => {
       - detective??
       - sheriff??
       - ??
-  - id (int) (index in array for easy retrieval)
-  - hasVoted: whether the player has voted in the current phase of the game, needs to be reset after/before each new phase
-  - currentVotes: how many votes there are against this player in the current phase of the game, needs to be reset after before each new phase
+    - id (int) (index in array for easy retrieval)
     */
   const [players, setPlayers] = useState([
     {
@@ -73,23 +75,20 @@ const GameContextProvider = ({ children }) => {
       role: 'none',
       id: 0,
       hasVoted: false,
-      currentVotes: 0,
     },
     {
       name: 'MJ',
       alive: false,
       role: 'none',
-      hasVoted: false,
       id: 1,
-      currentVotes: 1,
+      hasVoted: true,
     },
     {
       name: 'Nyah',
-      alive: false,
-      role: 'none',
+      alive: true,
+      role: 'mafia',
       id: 2,
-      hasVoted: false,
-      currentVotes: 0,
+      hasVoted: true,
     },
     {
       name: 'Ahnaf',
@@ -97,7 +96,6 @@ const GameContextProvider = ({ children }) => {
       role: 'none',
       id: 3,
       hasVoted: true,
-      currentVotes: 0,
     },
     {
       name: 'Suri',
@@ -105,31 +103,38 @@ const GameContextProvider = ({ children }) => {
       role: 'none',
       id: 4,
       hasVoted: true,
-      currentVotes: 0,
     },
     {
       name: 'Linda',
       alive: true,
       role: 'none',
       id: 5,
-      hasVoted: false,
-      currentVotes: 0,
+      hasVoted: true,
     },
     {
       name: 'Blair',
       alive: true,
       role: 'none',
       id: 6,
-      hasVoted: false,
-      currentVotes: 0,
+      hasVoted: true,
     },
   ]);
+  const [votes, setVotes] = useState({
+    //arrays indexed by by player id
+    kill: [0, 0, 0, 0, 0, 0, 0],
+    save: [3, 0, 1, 0, 2, 0, 0],
+  });
+
   const [numMafia, setNumMafia] = useState(0);
   const [numTownspeople, setNumTownspeople] = useState(0);
   const [votingTime, setVotingTime] = useState(10);
   const [dayNum, setDayNum] = useState(0);
-  const [currentPage, setCurrentPage] = useState('main'); //options: 'main', 'voting', ...
+  const [isDay, setIsDay] = useState(false);
+  const [currentPage, setCurrentPage] = useState('DayVoting'); //options: 'MainMenu', 'DayVoting', 'NightVoting', 'DeathMessage', 'SelectVoter', 'NightMessage', 'Discussion'
   const [currentVoter, setCurrentVoter] = useState(players[0]);
+  const [winner, setWinner] = useState({}); //if no winner, empty string. Otherwise 'MAFIA', 'TOWN', 'JOKER'
+  const mafiaRoleList = ['mafia', 'godfather'];
+  const townRoleList = ['none', 'doctor', 'investigator', 'joker'];
 
   const initialContext = {
     roles,
@@ -148,6 +153,14 @@ const GameContextProvider = ({ children }) => {
     setCurrentPage,
     currentVoter,
     setCurrentVoter,
+    votes,
+    setVotes,
+    isDay,
+    setIsDay,
+    winner,
+    setWinner,
+    mafiaRoleList,
+    townRoleList,
   };
 
   return (
