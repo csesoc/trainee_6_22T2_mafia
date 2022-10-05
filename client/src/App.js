@@ -14,20 +14,20 @@ function App() {
 
   const getCurrentPage = () => {
     switch (currentPage) {
-      case 'DayVoting':
-        return <DayVotingMenu />;
-      case 'DeathMessage':
-        return <DeathMessage />;
       case 'MainMenu':
         return <MainMenu />;
-      case 'SelectVoter':
-        return <PlayerSelectMenu />;
-      case 'SelectAction':
-        return <ActionMenu />;
-      case 'GameOver':
-        return <GameOver />;
       case 'TurnSelect':
         return <TurnSelectScreen />;
+      case 'SelectAction':
+        return <ActionMenu />;
+      case 'DeathMessage':
+        return <DeathMessage />;
+      case 'DayVoting':
+        return <DayVotingMenu />;
+      case 'SelectVoter':
+        return <PlayerSelectMenu />;
+      case 'GameOver':
+        return <GameOver />;
       default:
         return <></>;
     }
@@ -38,3 +38,12 @@ function App() {
 }
 
 export default App;
+
+// UI Comments
+// BEGIN GAME button should grey out if game starting is invalid
+// VOTE FOR PLAYER radio button too small
+//  - and make it clearer that you can press it
+// TIMER should give more of a warning
+// MAIN MENU use more of the screen
+//  - make the +- buttons larger
+// Make the theme black + dark red to mirror mafia

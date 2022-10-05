@@ -1,41 +1,41 @@
 .parent {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-        padding: 1%;
+  padding: 1%;
 }
 
 .parent-box {
-        background-color: #333;
-        border-radius: 12px;
-        color: #eee;
-        min-height: 200px;
-        padding: 150px;
-        width: 300px;
+  background-color: #333;
+  border-radius: 12px;
+  color: #eee;
+  /* min-height: 200px; */
+  /* padding: 150px; */
+  width: vw;
 
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-        align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .child-tabs {
-        display: flex;
-        flex-flow: row nowrap;
-        flex-direction: row;
-        justify-content: center;
+  display: flex;
+  flex-flow: row nowrap;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .player-select {
-        background-color: gray;
-        border-radius: 12px;
-        color: #eee;
-        padding: 120px;
-        width: 300px;
+  background-color: gray;
+  border-radius: 12px;
+  color: #eee;
+  padding: 120px;
+  /* width: 300px; */
 
-        display: flex;
-        flex-flow: row nowrap;
-        flex-direction: row;
-        justify-content: center;
+  display: flex;
+  flex-flow: row nowrap;
+  flex-direction: row;
+  justify-content: center;
 }

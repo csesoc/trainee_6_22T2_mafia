@@ -10,7 +10,12 @@ const PlayerSelectButton = ({ playerName, func }) => {
 
   //  return <button className = "name-button" onClick={func}>{name}</button>
   return (
-    <button className="name-button" onClick={() => func(name)}>
+    <button
+      className="name-button"
+      onClick={() => {
+        func(name);
+      }}
+    >
       {name}
     </button>
   );

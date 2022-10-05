@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, setState } from 'react';
 
 /* Roles:
   - name: string
@@ -23,6 +23,13 @@ const defaultRoles = [
   },
   {
     roleId: 2,
+    name: 'Detective',
+    help: 'Investigates whether players are evil',
+    count: 0,
+    isEvil: false,
+  },
+  {
+    roleId: 3,
     name: 'Barista',
     help: 'Makes coffee',
     count: 0,
@@ -35,6 +42,7 @@ export const GameContext = createContext({
   setRoles: () => {},
   players: [],
   setPlayers: () => {},
+  generatePlayerId: () => {},
   numMafia: 0,
   setNumMafia: () => {},
   numTownspeople: 0,
@@ -59,78 +67,37 @@ const GameContextProvider = ({ children }) => {
     - name (string)
     - alive (bool)
     - role (string) options:
-      - barista
+      - ''
       - mafia
+      - barista
+      - doctor
+      - detective
       - mafioso??
-      - doctor??
-      - detective??
       - sheriff??
-      - ??
-    - id (int) (index in array for easy retrieval)
+    - id (int)
+    - hasVoted (bool)
+    - currentVotes (int)
     */
-  const [players, setPlayers] = useState([
-    {
-      name: 'James',
-      alive: true,
-      role: 'none',
-      id: 0,
-      hasVoted: false,
-    },
-    {
-      name: 'MJ',
-      alive: false,
-      role: 'none',
-      id: 1,
-      hasVoted: true,
-    },
-    {
-      name: 'Nyah',
-      alive: true,
-      role: 'mafia',
-      id: 2,
-      hasVoted: true,
-    },
-    {
-      name: 'Ahnaf',
-      alive: true,
-      role: 'none',
-      id: 3,
-      hasVoted: true,
-    },
-    {
-      name: 'Suri',
-      alive: true,
-      role: 'none',
-      id: 4,
-      hasVoted: true,
-    },
-    {
-      name: 'Linda',
-      alive: true,
-      role: 'none',
-      id: 5,
-      hasVoted: true,
-    },
-    {
-      name: 'Blair',
-      alive: true,
-      role: 'none',
-      id: 6,
-      hasVoted: true,
-    },
-  ]);
+  const [players, setPlayers] = useState([]);
+  const [playerId, setPlayerId] = useState(0);
+  const generatePlayerId = () => {
+    const newPlayerId = playerId + 1;
+    setPlayerId(newPlayerId);
+    // Make player ID's end in a 0 in case we need error checking:
+    return newPlayerId * 10;
+  };
+
   const [votes, setVotes] = useState({
     //arrays indexed by by player id
     kill: [0, 0, 0, 0, 0, 0, 0],
     save: [3, 0, 1, 0, 2, 0, 0],
   });
-
   const [numMafia, setNumMafia] = useState(0);
   const [numTownspeople, setNumTownspeople] = useState(0);
   const [votingTime, setVotingTime] = useState(10);
   const [dayNum, setDayNum] = useState(0);
   const [isDay, setIsDay] = useState(false);
-  const [currentPage, setCurrentPage] = useState('DayVoting'); //options: 'MainMenu', 'DayVoting', 'NightVoting', 'DeathMessage', 'SelectVoter', 'NightMessage', 'Discussion'
+  const [currentPage, setCurrentPage] = useState('MainMenu'); //options: 'MainMenu', 'DayVoting', 'NightVoting', 'DeathMessage', 'SelectVoter', 'NightMessage', 'Discussion'
   const [currentVoter, setCurrentVoter] = useState(players[0]);
   const [winner, setWinner] = useState({}); //if no winner, empty string. Otherwise 'MAFIA', 'TOWN', 'JOKER'
   const mafiaRoleList = ['mafia', 'godfather'];
@@ -141,6 +108,7 @@ const GameContextProvider = ({ children }) => {
     setRoles,
     players,
     setPlayers,
+    generatePlayerId,
     numMafia,
     setNumMafia,
     numTownspeople,

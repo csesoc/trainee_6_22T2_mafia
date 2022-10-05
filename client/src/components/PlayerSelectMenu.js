@@ -1,28 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState, useEffect } from 'react';
 import PlayerSelectButton from './PlayerSelectButton';
 import '../style/TurnSelectScreen.css';
+import { GameContext } from '../GameContext';
 
 const PlayerSelectMenu = ({ title, func }) => {
-  const [liveNames, setLiveNames] = useState([]);
-  // Gets called when stuff in [] changes
-  // If [] is empty, gets called when component is loaded in
-
-  useEffect(() => {
-    // Make a copy of the list
-    let newLiveNames = [...liveNames];
-
-    newLiveNames.push('Nyah');
-    newLiveNames.push('MJ');
-    newLiveNames.push('Suri');
-    newLiveNames.push('Linda');
-    newLiveNames.push('Ahnaf');
-    newLiveNames.push('James');
-    newLiveNames.push('Blair');
-    setLiveNames(newLiveNames);
-    // func()
-    console.log(func);
-  }, []);
+  const { players } = useContext(GameContext);
+  const [liveNames, setLiveNames] = useState(
+    players.filter((player) => player.alive)
+  );
 
   return (
     <div className="parent">
@@ -34,8 +20,12 @@ const PlayerSelectMenu = ({ title, func }) => {
               {' '}
               {title}
               <br></br>
-              {liveNames.map((name) => (
-                <PlayerSelectButton playerName={name} func={func} />
+              {liveNames.map((player) => (
+                <PlayerSelectButton
+                  playerName={player.name}
+                  func={func}
+                  key={player.id}
+                />
               ))}
             </div>
           </div>
