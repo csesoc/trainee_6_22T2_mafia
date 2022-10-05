@@ -46,4 +46,4 @@ export default App;
 // TIMER should give more of a warning
 // MAIN MENU use more of the screen
 //  - make the +- buttons larger
-// Make the theme black + dark red
+// Make the theme black + dark red to mirror mafia

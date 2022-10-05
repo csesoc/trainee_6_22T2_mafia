@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, setState } from 'react';
 
 /* Roles:
   - name: string
@@ -68,23 +68,25 @@ const GameContextProvider = ({ children }) => {
     - alive (bool)
     - role (string) options:
       - ''
-      - barista
       - mafia
+      - barista
+      - doctor
+      - detective
       - mafioso??
-      - doctor??
-      - detective??
       - sheriff??
     - id (int)
     - hasVoted (bool)
     - currentVotes (int)
     */
   const [players, setPlayers] = useState([]);
-  const [playerId, setPlayerId] = useState(1);
+  const [playerId, setPlayerId] = useState(0);
   const generatePlayerId = () => {
-    setPlayerId((playerId) => playerId + 1);
-    // Player ID's end in a 0 in case we need error checking:
-    return playerId * 10;
+    const newPlayerId = playerId + 1;
+    setPlayerId(newPlayerId);
+    // Make player ID's end in a 0 in case we need error checking:
+    return newPlayerId * 10;
   };
+
   const [votes, setVotes] = useState({
     //arrays indexed by by player id
     kill: [0, 0, 0, 0, 0, 0, 0],
@@ -95,7 +97,7 @@ const GameContextProvider = ({ children }) => {
   const [votingTime, setVotingTime] = useState(10);
   const [dayNum, setDayNum] = useState(0);
   const [isDay, setIsDay] = useState(false);
-  const [currentPage, setCurrentPage] = useState('DayVoting'); //options: 'MainMenu', 'DayVoting', 'NightVoting', 'DeathMessage', 'SelectVoter', 'NightMessage', 'Discussion'
+  const [currentPage, setCurrentPage] = useState('MainMenu'); //options: 'MainMenu', 'DayVoting', 'NightVoting', 'DeathMessage', 'SelectVoter', 'NightMessage', 'Discussion'
   const [currentVoter, setCurrentVoter] = useState(players[0]);
   const [winner, setWinner] = useState({}); //if no winner, empty string. Otherwise 'MAFIA', 'TOWN', 'JOKER'
   const mafiaRoleList = ['mafia', 'godfather'];

@@ -55,9 +55,9 @@ const MainMenu = () => {
 
   const [menuErrors, setMenuErrors] = useState(resetMenuErrors());
 
-  const setMenuError = (error) => {
-    const newMenuErrors = { ...menuErrors };
-    newMenuErrors[error] = true;
+  const setMenuError = (errors) => {
+    const newMenuErrors = { ...resetMenuErrors() };
+    for (const error of errors) newMenuErrors[error] = true;
     setMenuErrors(newMenuErrors);
   };
 
@@ -65,11 +65,8 @@ const MainMenu = () => {
     const usernames = {};
     for (const player of players) {
       const playerName = player.name;
-      if (usernames[playerName] !== undefined) {
-        return true;
-      } else {
-        usernames[playerName] = true;
-      }
+      if (usernames[playerName] !== undefined) return true;
+      else usernames[playerName] = true;
     }
     return false;
   };
@@ -84,26 +81,21 @@ const MainMenu = () => {
   };
 
   const verifyPlayers = () => {
-    let gameReady = true;
-    setMenuErrors(resetMenuErrors());
+    const errors = [];
     const numPlayers = players.length;
-    if (numPlayers <= 3) {
-      setMenuError('insufficientPlayers');
-      gameReady = false;
+
+    if (invalidNick()) errors.push('invalidNick');
+
+    if (numPlayers <= 3) errors.push('insufficientPlayers');
+    else {
+      if (numPlayers !== numTownspeople + numMafia)
+        errors.push('playerCountError');
+      if (numTownspeople <= numMafia + 1) errors.push('tooEvil');
     }
-    if (invalidNick()) {
-      setMenuError('invalidNick');
-      gameReady = false;
-    }
-    if (numPlayers > 3 && numPlayers !== numTownspeople + numMafia) {
-      setMenuError('playerCountError');
-      gameReady = false;
-    }
-    if (numPlayers > 3 && numTownspeople <= numMafia + 1) {
-      setMenuError('tooEvil');
-      gameReady = false;
-    }
-    return gameReady;
+
+    setMenuError(errors);
+    // If there are errors, we cannot start the game yet
+    return errors.length > 0 ? false : true;
   };
 
   useEffect(() => {
@@ -120,7 +112,7 @@ const MainMenu = () => {
   const startGame = () => {
     if (verifyPlayers()) {
       setupGame();
-      setCurrentPage('voting');
+      setCurrentPage('TurnSelect');
     }
     return;
   };
@@ -135,21 +127,20 @@ const MainMenu = () => {
           <Tabs />
         </div>
         <div>
-          <p>
-            {menuErrors['insufficientPlayers'] && (
-              <p>You need at least four players!</p>
-            )}
-            {menuErrors['invalidNick'] && <p>Not all usernames are valid!</p>}
-            {menuErrors['playerCountError'] && (
-              <p>Number of players is not equal to number of roles!</p>
-            )}
-            {menuErrors['tooEvil'] && <p>Too many evil roles!</p>}
-          </p>
+          {menuErrors['insufficientPlayers'] && (
+            <p>You need at least four players!</p>
+          )}
+          {menuErrors['invalidNick'] && <p>Not all usernames are valid!</p>}
+          {menuErrors['playerCountError'] && (
+            <p>Number of players is not equal to number of roles!</p>
+          )}
+          {menuErrors['tooEvil'] && <p>Too many evil roles!</p>}
           <p>
             Players: {players.length} / Mafia: {numMafia} / Townspeople:{' '}
             {numTownspeople}
           </p>
-          (If you think the errors are try switching between the two settings)
+          (If you think the errors are wrong try switching between the two
+          settings)
           <br />
           <button onClick={startGame}>Begin!</button>
         </div>

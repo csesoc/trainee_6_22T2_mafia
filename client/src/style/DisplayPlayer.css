@@ -25,6 +25,10 @@
   border: 1px solid darkgrey;
 }
 
+.DisplayName:hover {
+  cursor: text;
+}
+
 .DisplayPlayer button {
   color: white;
   background-color: red;
