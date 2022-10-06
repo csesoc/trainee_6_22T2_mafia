@@ -3,27 +3,22 @@ import '../style/gameOver.css';
 import { GameContext } from '../GameContext';
 
 const GameOver = () => {
-  const { players, winner, mafiaRoleList, townRoleList } =
-    useContext(GameContext);
+  const { players, winner, roles } = useContext(GameContext);
 
   let winners = [];
   let losers = [];
 
   for (const player of players) {
+    let role = roles.find((role) => role.name === player.role);
+
     if (winner === 'mafia') {
-      if (mafiaRoleList.includes(player.role)) {
-        winners.push(player.name);
-      } else {
+      if (role === undefined || !role.isEvil) {
         losers.push(player.name);
-      }
-    } else if (winner === 'joker') {
-      if (player.role === 'joker') {
-        winners.push(player.name);
       } else {
-        losers.push(player.name);
+        winners.push(player.name);
       }
     } else {
-      if (townRoleList.includes(player.role) && player.role !== 'joker') {
+      if (role === undefined || !role.isEvil) {
         winners.push(player.name);
       } else {
         losers.push(player.name);
@@ -31,8 +26,6 @@ const GameOver = () => {
     }
   }
 
-  console.log('winners: ' + winners);
-  console.log('losers: ' + losers);
   return (
     <div className="gameOver">
       <h1>THE {winner} WON!</h1>

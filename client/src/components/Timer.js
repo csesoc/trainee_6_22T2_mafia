@@ -1,10 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { GameContext } from '../GameContext';
+import React, { useEffect } from 'react';
 
 const Timer = ({ nextPhase, time, setTime }) => {
-  const { players, setPlayers, setCurrPage, votes, setVotes, currentVoter } =
-    useContext(GameContext);
-
   useEffect(() => {
     const interval = setInterval(() => {
       setTime((time) => time - 1);

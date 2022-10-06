@@ -4,9 +4,6 @@ import '../style/button.css';
 import { GameContext } from '../GameContext';
 
 const DeathMessage = () => {
-  //TODO
-  //should a player be able to vote for themselves???
-
   const {
     players,
     setPlayers,
@@ -18,8 +15,7 @@ const DeathMessage = () => {
     dayNum,
     setDayNum,
     setWinner,
-    mafiaRoleList,
-    townRoleList,
+    roles,
   } = useContext(GameContext);
 
   const [deadPlayer, setDeadPlayer] = useState(-1);
@@ -91,11 +87,6 @@ const DeathMessage = () => {
     let newPlayers = [...players];
     newPlayers[toKill].alive = false;
 
-    if (newPlayers[toKill].role === 'joker' && isDay) {
-      //joker succeeded in their task: getting themself voted off
-      triggerGameOver('JOKER');
-    }
-
     setPlayers(newPlayers);
   }
 
@@ -108,10 +99,11 @@ const DeathMessage = () => {
     let numTownspeople = 0;
     for (const player of players) {
       if (player.alive) {
-        if (mafiaRoleList.includes(player.role, 0)) {
-          numMafia++;
-        } else if (townRoleList.includes(player.role, 0)) {
+        let role = roles.find((role) => role.name === player.role);
+        if (role === undefined || !role.isEvil) {
           numTownspeople++;
+        } else {
+          numMafia++;
         }
       }
     }
@@ -169,7 +161,7 @@ const DeathMessage = () => {
     setVotes(newVotes);
 
     let newPlayers = [...players];
-    newPlayers.forEach((player) => (player.hasVoted = false));
+    newPlayers.forEach((player) => (player.hasPlayedTurn = false));
 
     setPlayers(newPlayers);
   };
