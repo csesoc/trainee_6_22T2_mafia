@@ -49,8 +49,6 @@ export const GameContext = createContext({
   setCurrentVoter: () => {},
   winner: {},
   setWinner: () => {},
-  mafiaRoleList: [],
-  townRoleList: [],
 });
 
 const GameContextProvider = ({ children }) => {
@@ -72,51 +70,51 @@ const GameContextProvider = ({ children }) => {
     {
       name: 'James',
       alive: true,
-      role: 'none',
+      role: 'Barista',
       id: 0,
-      hasVoted: false,
+      hasPlayedTurn: false,
     },
     {
       name: 'MJ',
       alive: false,
-      role: 'none',
+      role: 'Barista',
       id: 1,
-      hasVoted: true,
+      hasPlayedTurn: true,
     },
     {
       name: 'Nyah',
       alive: true,
-      role: 'mafia',
+      role: 'Mafia',
       id: 2,
-      hasVoted: true,
+      hasPlayedTurn: true,
     },
     {
       name: 'Ahnaf',
       alive: true,
-      role: 'none',
+      role: 'Barista',
       id: 3,
-      hasVoted: true,
+      hasPlayedTurn: true,
     },
     {
       name: 'Suri',
       alive: true,
-      role: 'none',
+      role: 'Barista',
       id: 4,
-      hasVoted: true,
+      hasPlayedTurn: true,
     },
     {
       name: 'Linda',
       alive: true,
-      role: 'none',
+      role: 'Barista',
       id: 5,
-      hasVoted: true,
+      hasPlayedTurn: true,
     },
     {
       name: 'Blair',
       alive: true,
-      role: 'none',
+      role: 'Barista',
       id: 6,
-      hasVoted: true,
+      hasPlayedTurn: true,
     },
   ]);
   const [votes, setVotes] = useState({
@@ -133,8 +131,6 @@ const GameContextProvider = ({ children }) => {
   const [currentPage, setCurrentPage] = useState('DayVoting'); //options: 'MainMenu', 'DayVoting', 'NightVoting', 'DeathMessage', 'SelectVoter', 'NightMessage', 'Discussion'
   const [currentVoter, setCurrentVoter] = useState(players[0]);
   const [winner, setWinner] = useState({}); //if no winner, empty string. Otherwise 'MAFIA', 'TOWN', 'JOKER'
-  const mafiaRoleList = ['mafia', 'godfather'];
-  const townRoleList = ['none', 'doctor', 'investigator', 'joker'];
 
   const initialContext = {
     roles,
@@ -159,8 +155,6 @@ const GameContextProvider = ({ children }) => {
     setIsDay,
     winner,
     setWinner,
-    mafiaRoleList,
-    townRoleList,
   };
 
   return (

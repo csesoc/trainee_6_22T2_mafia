@@ -20,7 +20,7 @@ const DayVotingMenu = () => {
   const [time, setTime] = useState(votingTime);
 
   const confirmVote = () => {
-    if (currentVoter.hasVoted) {
+    if (currentVoter.hasPlayedTurn) {
       goToNextVoter();
       return;
     }
@@ -32,7 +32,7 @@ const DayVotingMenu = () => {
         document.getElementById('radio' + player.name).checked
       ) {
         let newPlayers = [...players];
-        newPlayers[currentVoter.id].hasVoted = true;
+        newPlayers[currentVoter.id].hasPlayedTurn = true;
         setPlayers(newPlayers);
 
         let newVotes = {
@@ -53,7 +53,7 @@ const DayVotingMenu = () => {
   function goToNextVoter() {
     let moreToVote = false;
     players.forEach((player) => {
-      if (player.hasVoted === false) {
+      if (player.hasPlayedTurn === false) {
         moreToVote = true;
       }
     });
